@@ -18,10 +18,25 @@ async def usermain(request:Request):
 async def login(request:Request):
     return templates.TemplateResponse(name="usermain.html", context={'request':request}) 
 
-# Sign-in 클릭했을 때 : 주소 /clicktech/signin
-@router.get("/signin") # 펑션 호출 방식
-async def signin(request:Request):
+# Sign-in 클릭했을 때 : 주소 /clicktech/join
+@router.get("/join") # 펑션 호출 방식
+async def join(request:Request):
     return templates.TemplateResponse(name="join/step1.html", context={'request':request})
+
+# Sign-in 클릭했을 때 : 주소 /clicktech/join/step2
+@router.get("/join/step2") # 펑션 호출 방식
+async def join(request:Request):
+    return templates.TemplateResponse(name="join/step2.html", context={'request':request})
+
+# Sign-in 클릭했을 때 : 주소 /clicktech/join
+@router.get("/join/step3") # 펑션 호출 방식
+async def join(request:Request):
+    return templates.TemplateResponse(name="join/step3.html", context={'request':request})
+
+# Sign-in 클릭했을 때 : 주소 /clicktech/join
+@router.get("/join/step4") # 펑션 호출 방식
+async def join(request:Request):
+    return templates.TemplateResponse(name="join/step4.html", context={'request':request})
 
 # 전체리스트 클릭했을 때 : 주소 /clicktech/alllist
 @router.get("/alllist") # 펑션 호출 방식
