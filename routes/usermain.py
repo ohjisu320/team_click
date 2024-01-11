@@ -28,6 +28,11 @@ async def signin(request:Request):
 async def allad(request:Request):
     return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request})
 
+# 광고 하나를 클릭했을 때 : 주소 /clicktech/alllist/detail
+@router.get("/alllist/detail") # 펑션 호출 방식
+async def allad(request:Request):
+    return templates.TemplateResponse(name="offerwall/allad_detail.html", context={'request':request})
+
 
 # 쿠폰교환 클릭했을 때 : 주소 /clicktech/exchange
 @router.get("/exchange") # 펑션 호출 방식
@@ -47,7 +52,7 @@ async def notice(request:Request):
 # 공지사항의 글 하나를 클릭했을 때 : 주소 /clicktech/notice/detail
 @router.get("/notice/detail") # 펑션 호출 방식
 async def notice(request:Request):
-    return templates.TemplateResponse(name="notice/notice_main.html", context={'request':request})
+    return templates.TemplateResponse(name="notice/notice_detail.html", context={'request':request})
 
 # FAQ 클릭했을 때 : 주소 /clicktech/faq
 @router.get("/faq") # 펑션 호출 방식

@@ -1,9 +1,0 @@
-
-body {
-    border-style: dotted black 1px;
-    background-color: antiquewhite;
-    display: grid;
-    grid-template-columns: auto;
-    justify-content: center;   
-    
-}
