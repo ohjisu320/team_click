@@ -5,77 +5,67 @@ Click-Tech
 {% endblock title%}
 
 {% block main %}
-    <form>
-        <div id="wrap">
-            <!-- textarea 사용 시작 -->
-            <figure>
-                <h2>[필수] 이용약관 동의</h2>
-                <!-- readonly => 수정 불가 -->
-                <textarea readonly>
-    제1조(목적)
-    blah blah blah
-        </textarea>
-
-                <figcaption>
-                    <label>
-                        이용약관에 동의하십니까?
-                        <input type="checkbox" id="agree01">
-                        동의함 (필수)
-                    </label>
-                </figcaption>
-            </figure>
-            <!-- textarea 사용 시작 -->
-            <figure>
-                <h2>[필수] 이용약관 동의</h2>
-                <!-- readonly => 수정 불가 -->
-                <textarea readonly>
-    제1조(목적)
-    blah blah blah
-        </textarea>
-
-                <figcaption>
-                    <label>
-                        이용약관에 동의하십니까?
-                        <input type="checkbox" id="agree02">
-                        동의함 (필수)
-                    </label>
-                </figcaption>
-            </figure>
-            <!-- textarea 사용 시작 -->
-            <figure>
-                <h2>[선택] 이용약관 동의</h2>
-                <!-- readonly => 수정 불가 -->
-                <textarea readonly>
-    제1조(목적)
-    blah blah blah
-        </textarea>
-
-                <figcaption>
-                    <label>
-                        이용약관에 동의하십니까?
-                        <input type="checkbox" id="agree03">
-                        동의함 (선택)
-                    </label>
-                </figcaption>
-            </figure>
-            <!-- textarea 사용 시작 -->
-            <figure>
-                <h2>[선택] 이용약관 동의</h2>
-                <!-- readonly => 수정 불가 -->
-                <textarea readonly>
-    제1조(목적)
-    blah blah blah
-        </textarea>
-
-                <figcaption>
-                    <label>
-                        이용약관에 동의하십니까?
-                        <input type="checkbox" id="agree04">
-                        동의함 (선택)
-                    </label>
-                </figcaption>
-            </figure>
-            </wrap>
+<form>
+        <div class="bd-example m-0 border-5">
+            <h5>[필수] 이용약관 동의</h5>
+            <!-- readonly => 수정 불가 -->
+            <textarea class="form-control col-6"  id="exampleFormControlTextarea1" rows="3" disabled>
+            제1조(목적)
+            blah blah blah
+            </textarea>
+        </div>
+        <div>
+            <label>
+                이용약관에 동의하십니까?
+                <input type="checkbox" id="agree01">
+                동의함 (필수)
+            </label>
+        <div>
+        <div class="bd-example m-0 border-5">
+            <h5>[필수] 이용약관 동의</h5>
+            <!-- readonly => 수정 불가 -->
+            <textarea class="form-control col-6" id="exampleFormControlTextarea1" rows="3" disabled>
+            제1조(목적)
+            blah blah blah
+            </textarea>
+        </div>
+        <div>
+            <label>
+                이용약관에 동의하십니까?
+                <input type="checkbox" id="agree02">
+                동의함 (필수)
+            </label>
+        <div>
+        <div class="bd-example m-0 border-5">
+            <h5>[선택] 이용약관 동의</h5>
+            <!-- readonly => 수정 불가 -->
+            <textarea class="form-control col-6" id="exampleFormControlTextarea1" rows="3" disabled>
+            제1조(목적)
+            blah blah blah
+            </textarea>
+        </div>
+        <div>
+            <label>
+                이용약관에 동의하십니까?
+                <input type="checkbox" id="agree03">
+                동의함 (선택)
+            </label>
+        <div>
+        <div class="bd-example m-0 border-5">
+            <h5>[선택] 이용약관 동의</h5>
+            <!-- readonly => 수정 불가 -->
+            <textarea class="form-control col-8" id="exampleFormControlTextarea1" rows="3" disabled>
+            제1조(목적)
+            blah blah blah
+            </textarea>
+        </div>
+        <div>
+            <label>
+                이용약관에 동의하십니까?
+                <input type="checkbox" id="agree04">
+                동의함 (선택)
+            </label>
+        <div>  
 
             <input type="checkbox" name="agree" id="agree05"> 전체 동의(선택 포함)
 
