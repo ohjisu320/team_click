@@ -16,7 +16,7 @@ async def usermain(request:Request):
 # Log-in 클릭했을 때 : 주소 /clicktech/login # !!html 수정 전!! #
 @router.get("/login") # 펑션 호출 방식
 async def login(request:Request):
-    return templates.TemplateResponse(name="usermain.html", context={'request':request}) 
+    return templates.TemplateResponse(name="login/login.html", context={'request':request}) 
 
 # Sign-in 클릭했을 때 : 주소 /clicktech/join
 @router.get("/join") # 펑션 호출 방식
