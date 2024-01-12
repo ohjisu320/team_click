@@ -12,7 +12,7 @@
         <label for="create_id" readonly class="col-sm-1 col-form-label">이름</label>
         <div class="col-sm-11 d-flex align-items-center">
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="user_name" placeholder="성함을 입력해 주세요">
+                <input type="text" class="form-control" id="user_name" placeholder="성함을 입력해 주세요" name="user_name">
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
         <label for="create_id" readonly class="col-sm-1 col-form-label">아이디</label>
         <div class="col-sm-11 d-flex align-items-center">
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="user_id" placeholder="아이디를 입력해 주세요">
+                <input type="text" class="form-control" id="user_id" placeholder="아이디를 입력해 주세요" name="user_id">
             </div>
             <div class="col-sm-2">
                 <button type="submit" class="btn btn-primary" style="margin-left: 10px;">중복확인</button>
@@ -34,14 +34,14 @@
         <label for="create_password" readonly class="col-sm-1 col-form-label">비밀번호</label>
         <div class="col-sm-11 d-flex align-items-center">
             <div class="col-sm-4">
-                <input type="password" class="form-control" id="user_pswd">
+                <input type="password" class="form-control" id="user_pswd" name="user_pswd">
             </div>
             <div class="col-sm-6">
                 <span style="margin-left: 10px;">영문과 숫자의 조합으로 구성하여 6자 이상 20자 이하로 입력하세요.</span>
             </div>
         </div>
     </div>
-    <div class="row" style="margin: 10px;">
+    <!-- <div class="row" style="margin: 10px;">
         <label for="check_password" readonly class="col-sm-1 col-form-label">비밀번호 확인</label>
         <div class="col-sm-11 d-flex align-items-center">
             <div class="col-sm-4">
@@ -51,12 +51,12 @@
                 <span style="margin-left: 10px;">비밀번호 확인을 위하여 다시 한 번 입력하세요.</span>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="row" style="margin: 10px;">
         <label for="create_id" readonly class="col-sm-1 col-form-label">전화번호</label>
         <div class="col-sm-11 d-flex align-items-center">
             <div>
-                <select class="form-select" id="user_phone_num1" aria-label="Default select example">
+                <select class="form-select" id="user_phone_num1" aria-label="Default select example" name="user_phone_num1">
                     <option value="010" selected>010</option>
                     <option value="011">011</option>
                     <option value="016">016</option>
@@ -67,11 +67,11 @@
             </div>
             <span style="margin-left: 10px;"> - </span>
             <div class="col-sm-1" style="margin-left: 10px;">
-                <input type="text" class="form-control" id="user_phone_num2">
+                <input type="text" class="form-control" id="user_phone_num2" name="user_phone_num2">
             </div>
             <span style="margin-left: 10px;"> - </span>
             <div class="col-sm-1" style="margin-left: 10px;">
-                <input type="text" class="form-control" id="user_phone_num3">
+                <input type="text" class="form-control" id="user_phone_num3" name="user_phone_num3">
             </div>
         </div>
     </div>
@@ -79,7 +79,7 @@
         <label for="email" readonly class="col-sm-1 col-form-label">아이디</label>
         <div class="col-sm-11 d-flex align-items-center">
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="user_email" placeholder="이메일 주소를 입력해 주세요">
+                <input type="text" class="form-control" id="user_email" placeholder="이메일 주소를 입력해 주세요" name="user_email">
             </div>
             <div class="col-sm-6">
                 <span style="margin-left: 10px;">양식에 맞추어 E-mail 주소를 입력해 주세요.</span>
@@ -89,7 +89,7 @@
 
 
     <div class="text-center">
-        <button type="submit" class="btn btn-primary" formaction="/clicktech/join/step4">가입하기</button>
+        <button type="submit" class="btn btn-primary" formaction="/clicktech/join/step4" formmethod="post">가입하기</button>
         <button type="reset" class="btn btn-danger">다시쓰기</button>
     </div>
 </form>

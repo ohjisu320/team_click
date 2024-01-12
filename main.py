@@ -1,22 +1,13 @@
 from fastapi import FastAPI
 app = FastAPI()
-# from databases.connections import Settings
-# @app.on_event("startup")
-# async def init_db() : 
-#     setting = Settings()
-#     await setting.initialize_database()
-
-
-
-
 # database의 세팅을 바꾸면 한번씩 재실행 시켜줘야 함.
-# from databases. import Settings
-# settings = Settings()
+from databases.connections import Settings
+settings = Settings()
 
-# @app.on_event("startup")
-# async def init_db() : 
-#     await settings.initialize_database()
-#     # database의 세팅을 바꾸면 한번씩 재실행 시켜줘야 함.
+@app.on_event("startup")
+async def init_db() : 
+    await settings.initialize_database()
+    # database의 세팅을 바꾸면 한번씩 재실행 시켜줘야 함.
 
 
 from fastapi import Request
