@@ -6,9 +6,9 @@ class User_info(Document, BaseModel):
     user_name : Optional[str] = None
     user_id : Optional[str] = None
     user_pswd: Optional[str] = None
-    user_phone_num1: Optional[int] = None
-    user_phone_num2: Optional[int] = None
-    user_phone_num3: Optional[int] = None
+    user_phone_num1: Optional[str] = None
+    user_phone_num2: Optional[str] = None
+    user_phone_num3: Optional[str] = None
     user_email: Optional[str] = None
     user_auth1: str = ""
     user_auth2: str = ""

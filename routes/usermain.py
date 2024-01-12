@@ -6,11 +6,15 @@ from fastapi import Request
 router = APIRouter()
 
 templates = Jinja2Templates(directory="templates/")
-
+from databases.connections import Database
+from models.ad_main import Ad_main
+collection_ad_main = Database(Ad_main)
 # 로고 클릭했을 때 : 주소 /clicktech/
 @router.get("/") # 펑션 호출 방식
 async def usermain(request:Request):
-    return templates.TemplateResponse(name="usermain.html", context={'request':request})
+    ad_main = await collection_ad_main.get_all()
+    return templates.TemplateResponse(name="usermain.html", context={'request':request,
+                                                                     'ad_main':ad_main})
 
 # Log-in 클릭했을 때 : 주소 /clicktech/login # !!html 수정 전!! #
 @router.get("/login") # 펑션 호출 방식
@@ -34,7 +38,7 @@ async def join(request:Request):
 
 
 # database 의 connections에 정의된 Database 클래스와 user_info collection을 정의한 User_info 클래스를 import
-from databases.connections import Database
+
 from models.user_info import User_info
 collection_user = Database(User_info)
 @router.post("/join/step4") # 펑션 호출 방식
@@ -57,10 +61,15 @@ async def user_input_post(request:Request):
 # async def join(request:Request):
 #     return templates.TemplateResponse(name="join/step4.html", context={'request':request})
 
+from models.ad_alllist import Ad_alllist
+collection_ad_alllist = Database(Ad_alllist)
 # 전체리스트 클릭했을 때 : 주소 /clicktech/alllist
 @router.get("/alllist") # 펑션 호출 방식
 async def allad(request:Request):
-    return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request})
+    ad_list = await collection_ad_alllist.get_all()
+    print(ad_list)
+    return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request,
+                                                                            "ad_list":ad_list})
 
 # 광고 하나를 클릭했을 때 : 주소 /clicktech/alllist/detail
 @router.get("/alllist/detail") # 펑션 호출 방식
