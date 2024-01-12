@@ -3,7 +3,6 @@ from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 
-
 router = APIRouter()
 
 templates = Jinja2Templates(directory="templates/")
@@ -33,10 +32,30 @@ async def join(request:Request):
 async def join(request:Request):
     return templates.TemplateResponse(name="join/step3.html", context={'request':request})
 
-# Sign-in 클릭했을 때 : 주소 /clicktech/join
-@router.get("/join/step4") # 펑션 호출 방식
-async def join(request:Request):
-    return templates.TemplateResponse(name="join/step4.html", context={'request':request})
+
+# database 의 connections에 정의된 Database 클래스와 user_info collection을 정의한 User_info 클래스를 import
+from databases.connections import Database
+from models.user_info import User_info
+collection_user = Database(User_info)
+@router.post("/join/step4") # 펑션 호출 방식
+async def user_input_post(request:Request):
+    user_dict = dict(await request.form())
+    try:
+        user = User_info(**user_dict)
+        await collection_user.save(user)
+    except Exception as e:
+        print(f"Error occurred: {e}") # 키 값에 해당되는 input이 없으면 빈 값이 주어지도록 설정
+        user = User_info(user_auth1="", user_auth2="", user_auth3="", user_auth4="",user_point="")
+        await collection_user.save(user)
+    # 리스트 정보
+    user_list = await collection_user.get_all()
+    return templates.TemplateResponse(name="join/step4.html"
+                                      , context={'request':request, "user_info":user_list})
+
+# # Sign-in 클릭했을 때 : 주소 /clicktech/join
+# @router.get("/join/step4") # 펑션 호출 방식
+# async def join(request:Request):
+#     return templates.TemplateResponse(name="join/step4.html", context={'request':request})
 
 # 전체리스트 클릭했을 때 : 주소 /clicktech/alllist
 @router.get("/alllist") # 펑션 호출 방식
