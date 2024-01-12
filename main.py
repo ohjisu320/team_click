@@ -47,6 +47,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from fastapi.staticfiles import StaticFiles
+app.mount("/css", StaticFiles(directory="resources\\css\\"), name="static_css")
+app.mount("/img", StaticFiles(directory="resources\\img\\"), name="static_img")
+
 @app.get("/")
 async def root(request:Request):
     return templates.TemplateResponse("biz/bizmain.html",{'request':request})
