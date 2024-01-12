@@ -44,13 +44,13 @@ async def user_input_post(request:Request):
         user = User_info(**user_dict)
         await collection_user.save(user)
     except Exception as e:
-        print(f"Error occurred: {e}")
+        print(f"Error occurred: {e}") # 키 값에 해당되는 input이 없으면 빈 값이 주어지도록 설정
         user = User_info(user_auth1="", user_auth2="", user_auth3="", user_auth4="",user_point="")
         await collection_user.save(user)
     # 리스트 정보
     user_list = await collection_user.get_all()
     return templates.TemplateResponse(name="join/step4.html"
-                                      , context={'request':request, "user_info" : user_list})
+                                      , context={'request':request, "user_info":user_list})
 
 # # Sign-in 클릭했을 때 : 주소 /clicktech/join
 # @router.get("/join/step4") # 펑션 호출 방식
