@@ -3,6 +3,10 @@
 {% block main %}
 
 <form>
+    <input type="checkbox" name="user_terms1" style="display:none;" {% if user_terms1 %} checked {% endif %}>
+    <input type="checkbox" name="user_terms2" style="display:none;" {% if user_terms2 %} checked {% endif %}>
+    <input type="checkbox" name="user_terms3" style="display:none;" {% if user_terms3 %} checked {% endif %}>
+    <input type="checkbox" name="user_terms4" style="display:none;" {% if user_terms4 %} checked {% endif %}>
     <br>
     <h2>회원정보 입력</h2>
 
