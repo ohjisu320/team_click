@@ -4,6 +4,8 @@ Click-Tech 광고
 {% endblock title%}
 
 {% block main %}
+
+
 <!-- 필터링 메뉴들 -->
 <div class="d-flex gap-2 justify-content-start py-5">
     <a href="#">
@@ -42,76 +44,23 @@ Click-Tech 광고
 <!-- 광고 상품 진열 -->
 <div class="container ">
     <div class="row">
+        {% for ad in ad_list %}
         <div class="col-3">
             <a href="/clicktech/alllist/detail">
                 <div class="card col-3 me-3" style="width: 18rem;">
-                    <img src="https://img.29cm.co.kr/next-product/2023/02/07/1d5ed854796d4085b032dcb83eb22e77_20230207161038.jpg?width=500//"
+                    <img src={{ad.thumnail}}
                         class="card-img-top" alt="광고 배너 이미지입니다.">
                     <div class="card-body">
-                        <p class="card-text">코리빙하우스 앱 설치하면 5000point</p>
+                        <p class="card-text fw-bold">{{ad.brand}}</p>
+                        <p class="card-text">{{ad.contents}}</p>
                     </div>
                 </div>
             </a>
             <p class="chips">
-                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">앱 설치</span>
+                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">{{ad.type}}</span>
             </p>
         </div>
-        <div class="col-3">
-            <a href="/clicktech/alllist/detail">
-                <div class="card col-3 me-3" style="width: 18rem;">
-                    <img src="https://img.29cm.co.kr/next-product/2023/02/07/1d5ed854796d4085b032dcb83eb22e77_20230207161038.jpg?width=500//"
-                        class="card-img-top" alt="광고 배너 이미지입니다.">
-                    <div class="card-body">
-                        <p class="card-text">코리빙하우스 회원가입하면 5000point</p>
-                    </div>
-                </div>
-            </a>
-            <p class="chips">
-                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">회원가입</span>
-            </p>
-        </div>
-        <div class="col-3">
-            <a href="/clicktech/alllist/detail">
-                <div class="card col-3 me-3" style="width: 18rem;">
-                    <img src="https://img.29cm.co.kr/next-product/2023/02/07/1d5ed854796d4085b032dcb83eb22e77_20230207161038.jpg?width=500//"
-                        class="card-img-top" alt="광고 배너 이미지입니다.">
-                    <div class="card-body">
-                        <p class="card-text">코리빙하우스 뉴스레터 구독하면 5000point</p>
-                    </div>
-                </div>
-            </a>
-            <p class="chips">
-                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">뉴스레터 구독</span>
-            </p>
-        </div>
-        <div class="col-3">
-            <a href="/clicktech/alllist/detail">
-                <div class="card col-3 me-3" style="width: 18rem;">
-                    <img src="https://img.29cm.co.kr/next-product/2023/02/07/1d5ed854796d4085b032dcb83eb22e77_20230207161038.jpg?width=500//"
-                        class="card-img-top" alt="광고 배너 이미지입니다.">
-                    <div class="card-body">
-                        <p class="card-text">코리빙하우스 사이트 접속하면 5000point</p>
-                    </div>
-                </div>
-            </a>
-            <p class="chips">
-                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">사이트 접속</span>
-            </p>
-        </div>
-        <div class="col-3">
-            <a href="/clicktech/alllist/detail">
-                <div class="card col-3 me-3" style="width: 18rem;">
-                    <img src="https://img.29cm.co.kr/next-product/2023/02/07/1d5ed854796d4085b032dcb83eb22e77_20230207161038.jpg?width=500//"
-                        class="card-img-top" alt="광고 배너 이미지입니다.">
-                    <div class="card-body">
-                        <p class="card-text">코리빙하우스에서 구매하면 5000point</p>
-                    </div>
-                </div>
-            </a>
-            <p class="chips">
-                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">구매</span>
-            </p>
-        </div>
+        {% endfor %}
         
 
     </div>
