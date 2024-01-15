@@ -46,10 +46,9 @@ Click-Tech 광고
     <div class="row">
         {% for ad in ad_list %}
         <div class="col-3">
-            {{ad._id}}
             <a href="/clicktech/alllist/detail/{{ad.id}}" class="justify-content-center" >
                 <div class="card col-3 justify-content-center" style="width: 100%;">
-                    <img src={{ad.thumnail}}
+                    <img src={{ad.thumnail_url}}
                         class="card-img-top text-center"  alt="광고 배너 이미지입니다.">
                     <div class="card-body">
                         <p class="card-text fw-bold">{{ad.brand}}</p>
@@ -58,7 +57,19 @@ Click-Tech 광고
                 </div>
             </a>
             <p class="chips">
-                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">{{ad.type}}</span>
+                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">
+                {% if ad.type =="download_app" %}
+                    앱 설치
+                {% elif ad.type =="join" %}
+                    회원가입
+                {% elif ad.type =="newsletter" %}
+                    뉴스레터 구독
+                {% elif ad.type =="enter" %}
+                    사이트 접속
+                {% elif ad.type =="purchase" %}
+                    구매
+                {% endif %}
+                </span>
             </p>
         </div>
         {% endfor %}
