@@ -18,102 +18,123 @@
 </head>
 
 <body>
-    <nav class="d-flex flex-nowrap">
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: 100%;">
-            <a href="/manager" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"><img src="/img/image.png" width="80" height="auto" alt=""><span class="fs-4">Managers</span></a>
-
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#home"></use>
-                        </svg>
-                        회원 관리
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-body-emphasis">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#speedometer2"></use>
-                        </svg>
-                        포인트 통계
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-body-emphasis">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#table"></use>
-                        </svg>
-                        광고 관리
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-body-emphasis">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#table"></use>
-                        </svg>
-                        관리자 관리
-                    </a>
-                </li>
-
-
-            </ul>
-            <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>mdo</strong>
-                </a>
-                <ul class="dropdown-menu text-small shadow">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
+    <div class="m-5 justify-content-start"><a href="/manager/"><img src="/img/image.png" width="80" height="auto"
+                alt=""></a></div>
+    <div class="row ms-5">
+        <ul class="col-2 list-unstyled ps-0">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse"
+                 aria-expanded="false">
+                Home
+            </button>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                    포인트 통계
+                </button>
+                <div class="collapse" id="home-collapse" style="">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a></li>
+                        <li><a href="#"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Updates</a></li>
+                        <li><a href="#"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reports</a></li>
+                    </ul>
+                </div>
+            </li>
+        
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                    광고 관리
+                </button>
+                <div class="collapse" id="dashboard-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="/manager/ad"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">광고 생성</a>
+                        </li>
+                        <li><a href="/manager/ad"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">광고 배치</a>
+                        </li>
+                        <li><a href="/manager/adlist"
+                            class="link-body-emphasis d-inline-flex text-decoration-none rounded">광고 리스트</a>
                     </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
-        </div>
-    </nav>
-    <main class="container">
-        {% block main %}
-        {% endblock main %}
-    </main>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                    공지사항/FAQ 관리
+                </button>
+                <div class="collapse" id="orders-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항</a>
+                        </li>
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="border-top my-3"></li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                    Account
+                </button>
+                <div class="collapse" id="account-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">New...</a>
+                        </li>
+                        <li><a href="#"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Profile</a></li>
+                        <li><a href="#"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Settings</a></li>
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Sign
+                                out</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+
+        <main class="col-10 container ">
+            {% block main %}
+            {% endblock main %}
+        </main>
+    </div>
 
 
     <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
         <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
             <div class="row justify-content-between mb-3">
-            <div class="col-2">
-                <a class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="/" aria-label="Click-Tech">
-                <span class="fs-5">Click-Tech</span>
-                </a>
-                <ul class="list-unstyled small">
-                <li class="mb-2"> 클릭으로 가치를 창출합니다. </li>
+                <div class="col-2">
+                    <a class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="/"
+                        aria-label="Click-Tech">
+                        <span class="fs-5">Click-Tech</span>
+                    </a>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"> 클릭으로 가치를 창출합니다. </li>
 
-                </ul>
-            </div>
-            <div class="col-10 row justify-content-end">
-                <div class="col-3">
-                <h5>Click-tech Links</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="/">이용하기</a></li>
-                    <li class="mb-2"><a href="/">회원가입하기</a></li>
-                    <li class="mb-2"><a href="/">로그인하기</a></li>
+                    </ul>
+                </div>
+                <div class="col-10 row justify-content-end">
+                    <div class="col-3">
+                        <h5>Click-tech Links</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="/">이용하기</a></li>
+                            <li class="mb-2"><a href="/">회원가입하기</a></li>
+                            <li class="mb-2"><a href="/">로그인하기</a></li>
 
-                </ul>
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <h5>Countact Us</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="/contact">Contact Us</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-3">
-                <h5>Countact Us</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="/contact">Contact Us</a></li>
-                </ul>
-                </div>
-            </div>
             </div>
         </div>
     </footer>

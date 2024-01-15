@@ -3,5 +3,121 @@
 쿠폰교환
 {% endblock title%}
 {% block main %}
-쿠폰교환페이지 메인입니다.
+
+<!-- 필터링 메뉴들 -->
+<div class="d-flex gap-2 justify-content-center py-5 container">
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-emphasis bg-primary rounded-pill">
+            <span class="px-1">전체</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">카페</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">베이커리/도넛/떡</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">백화점/마트</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">아이스크림</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">편의점</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">버거/피자</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">치킨</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">한식/중식/분식</span>
+        </span>
+    </a>
+    <!-- 나중에 줄 바꾸기 -->
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">구이/족발</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">레스토랑/뷔페</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">외국/퓨전/기타</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">영화/음악/도서</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">kt/통신</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">뷰티/헤어/바디</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">건강/리빙/식품관</span>
+        </span>
+    </a>
+    <a href="#">
+        <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="px-1">생활/가전/엔터</span>
+        </span>
+    </a>
+
+
+</div>
+<!-- 기프티콘 목록들 -->
+<div class="container">
+    <div class="row">
+        {% for gifty in ad_list %}
+        <div class="col-3">
+            <a href="/clicktech/exchange/detail/{{ad.id}}" class="justify-content-center" >
+                <div class="card col-3 justify-content-center" style="width: 100%;">
+                    <img src={{ad.thumnail}}
+                        class="card-img-top text-center"  alt="광고 배너 이미지입니다.">
+                    <div class="card-body">
+                        <p class="card-text fw-bold">{{ad.brand}}</p>
+                        <p class="card-text">{{ad.contents}}</p>
+                    </div>
+                </div>
+            </a>
+            <p class="chips">
+                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">{{ad.type}}</span>
+            </p>
+        </div>
+        {% endfor %}
+        
+
+    </div>
+</div>
+
 {% endblock main %}
