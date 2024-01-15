@@ -1,9 +1,12 @@
-from fastapi import APIRouter
+from fastapi import FastAPI, APIRouter, Request, Form
 from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
-
+from databases.connections import Database
+from models.user_info import User_info
 router = APIRouter()
+app = FastAPI()
+collection_user = Database(User_info)
 
 templates = Jinja2Templates(directory="templates/")
 from databases.connections import Database
@@ -31,11 +34,11 @@ async def join(request:Request):
 async def join(request:Request):
     return templates.TemplateResponse(name="join/step2.html", context={'request':request})
 
-# Sign-in 클릭했을 때 : 주소 /clicktech/join
-@router.get("/join/step3") # 펑션 호출 방식
-async def join(request:Request):
-    return templates.TemplateResponse(name="join/step3.html", context={'request':request})
+@router.post("/join/step3")
+async def read_item(request: Request, user_terms1: str = Form('off'), user_terms2: str = Form('off'), user_terms3: str = Form('off'), user_terms4: str = Form('off')):
+    return templates.TemplateResponse(name="join/step3.html",context={"request": request, "user_terms1": user_terms1 == 'on', "user_terms2": user_terms2 == 'on', "user_terms3": user_terms3 == 'on', "user_terms4": user_terms4 == 'on'})
 
+app.include_router(router)
 
 # database 의 connections에 정의된 Database 클래스와 user_info collection을 정의한 User_info 클래스를 import
 
@@ -45,11 +48,15 @@ collection_user = Database(User_info)
 async def user_input_post(request:Request):
     user_dict = dict(await request.form())
     try:
+        user_dict['user_terms1'] = user_dict.get('user_terms1', 'off')
+        user_dict['user_terms2'] = user_dict.get('user_terms2', 'off')
+        user_dict['user_terms3'] = user_dict.get('user_terms3', 'off')
+        user_dict['user_terms4'] = user_dict.get('user_terms4', 'off')
         user = User_info(**user_dict)
         await collection_user.save(user)
     except Exception as e:
         print(f"Error occurred: {e}") # 키 값에 해당되는 input이 없으면 빈 값이 주어지도록 설정
-        user = User_info(user_auth1="", user_auth2="", user_auth3="", user_auth4="",user_point="")
+        user = User_info(user_terms1="on", user_terms2="on", user_terms3="off", user_terms4="off")
         await collection_user.save(user)
     # 리스트 정보
     user_list = await collection_user.get_all()
