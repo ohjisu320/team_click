@@ -98,20 +98,21 @@
 <!-- 기프티콘 목록들 -->
 <div class="container">
     <div class="row">
-        {% for gifty in ad_list %}
+        {% for gifty in gifty_list %}
         <div class="col-3">
-            <a href="/clicktech/exchange/detail/{{ad.id}}" class="justify-content-center" >
+            <a href="/clicktech/exchange/detail/{{gifty._id}}" class="justify-content-center" >
                 <div class="card col-3 justify-content-center" style="width: 100%;">
-                    <img src={{ad.thumnail}}
-                        class="card-img-top text-center"  alt="광고 배너 이미지입니다.">
+                    <img src={{gifty.gifty_image}}
+                        class="card-img-top text-center"  alt="기프티콘 이미지입니다.">
                     <div class="card-body">
-                        <p class="card-text fw-bold">{{ad.brand}}</p>
-                        <p class="card-text">{{ad.contents}}</p>
+                        <p class="card-text fw-bold">{{gifty.gifty_brand}}</p>
+                        <p class="card-text">{{gifty.gifty_name}}</p>
+                        <p class="card-text">{{gifty.gifty_price}}</p>
                     </div>
                 </div>
             </a>
             <p class="chips">
-                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">{{ad.type}}</span>
+                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">{{gifty.gifty_style}}</span>
             </p>
         </div>
         {% endfor %}

@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from databases.connections import Database
 from models.user_info import User_info
+from models.faq import Faq
 router = APIRouter()
 app = FastAPI()
 collection_user = Database(User_info)
@@ -84,15 +85,18 @@ async def detailad(request:Request, object_id):
     return templates.TemplateResponse(name="offerwall/allad_detail.html", context={'request':request,
                                                                                    "ad_detail":ad_detail})
 
-
+from models.gifty_info import Gifty_info
+collection_gifty = Database(Gifty_info)
 # 쿠폰교환 클릭했을 때 : 주소 /clicktech/exchange
 @router.get("/exchange") # 펑션 호출 방식
 async def exchange(request:Request):
-    return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request})
+    gifty_list = await collection_gifty.get_all()
+    return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request,
+                                                                                   "gifty_list" : gifty_list})
 
 # 쿠폰교환페이지에서 쿠폰 하나를 클릭했을 때 : 주소 /clicktech/exchange/detail
-@router.get("/exchange/detail") # 펑션 호출 방식
-async def exchange(request:Request):
+@router.post("/exchange/detail/{object_id}") # 펑션 호출 방식
+async def exchange(request:Request, object_id):
     return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request})
 
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
@@ -114,3 +118,29 @@ async def faq(request:Request):
 @router.get("/faq/detail") # 펑션 호출 방식
 async def faq(request:Request):
     return templates.TemplateResponse(name="faq/faq_detail.html", context={'request':request})
+
+
+
+database_faq = Database(Faq)
+from typing import Optional
+@router.get("/faq")
+@router.get("/faq/{page_number}")
+async def faq_list(request:Request, page_number: Optional[int] = 1):
+    list_faq = dict(request._query_params)
+    print(list_faq)
+    # db.answers.find({'name':{ '$regex': '김' }})
+    # { 'name': { '$regex': user_dict.word } }
+    conditions = { }
+    try :
+        search_word = list_faq["word"]
+    except:
+        search_word = None
+    if search_word:     # 검색어 작성
+        conditions = {list_faq['categories'] : { '$regex': list_faq["word"] }}
+    
+    list_faq, pagination = await database_faq.getsbyconditionswithpagination(conditions
+                                                                     ,page_number)
+    return templates.TemplateResponse(name="faq/faq_main.html"
+                                      , context={'request':request
+                                                 , 'faqs' : list_faq
+                                                  ,'pagination' : pagination })
