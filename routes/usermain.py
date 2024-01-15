@@ -68,20 +68,20 @@ async def user_input_post(request:Request):
 # async def join(request:Request):
 #     return templates.TemplateResponse(name="join/step4.html", context={'request':request})
 
-from models.ad_alllist import Ad_alllist
-collection_ad_alllist = Database(Ad_alllist)
+from models.ad_create import Ad_create
+collection_ad_create = Database(Ad_create)
 # 전체리스트 클릭했을 때 : 주소 /clicktech/alllist
 @router.get("/alllist") # 펑션 호출 방식
 async def allad(request:Request):
-    ad_list = await collection_ad_alllist.get_all()
+    ad_list = await collection_ad_create.get_all()
     print(ad_list)
     return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request,
                                                                             "ad_list":ad_list})
 
 # 광고 하나를 클릭했을 때 : 주소 /clicktech/alllist/detail
 @router.get("/alllist/detail/{object_id}") # 펑션 호출 방식
-async def allad(request:Request, object_id):
-    ad_detail = await collection_ad_alllist.get(object_id)
+async def detailad(request:Request, object_id):
+    ad_detail = await collection_ad_create.get(object_id)
     return templates.TemplateResponse(name="offerwall/allad_detail.html", context={'request':request,
                                                                                    "ad_detail":ad_detail})
 

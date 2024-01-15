@@ -6,6 +6,7 @@ from models.notice import Notice
 from models.faq import Faq
 from models.ad_alllist import Ad_alllist
 from models.ad_main import Ad_main
+from models.ad_create import Ad_create
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic_settings import BaseSettings
 
@@ -17,7 +18,7 @@ class Settings(BaseSettings):
     async def initialize_database(self): # 비동기화 되어 있으므로 즉각적인 반응이 있지는 않지만, 업무 자체는 완료할 수 있도록 한다.
         client = AsyncIOMotorClient(self.DATABASE_URL)
         await init_beanie(database=client.get_default_database(),
-                          document_models=[User_info,Gifty_info,Notice,Faq,Ad_alllist,Ad_main])
+                          document_models=[User_info,Gifty_info,Notice,Faq,Ad_alllist,Ad_main,Ad_create])
         
     class Config:
         env_file = ".env"

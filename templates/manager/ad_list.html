@@ -1,0 +1,53 @@
+{% extends "managermain_template.html"%}
+
+{% block title%}
+Click-Tech
+{% endblock title%}
+
+
+{% block main %}
+
+
+<div class="container">
+    <div>광고 리스트 보기</div>
+    <table class="table table-hover table-borderless">
+        <thead class="text-center">
+            <tr>
+                <th scope="col">광고타입</th>
+                <th scope="col">브랜드</th>
+                <th scope="col">광고제목</th>
+                <th scope="col">광고내용</th>
+                <th scope="col">포인트</th>
+                <th scope="col">삭제</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for ad in ad_list %}
+            <tr>
+                <td>
+                {% if ad.type =="download_app" %}
+                    앱 설치
+                {% elif ad.type =="join" %}
+                    회원가입
+                {% elif ad.type =="newsletter" %}
+                    뉴스레터 구독
+                {% elif ad.type =="enter" %}
+                    사이트 접속
+                {% elif ad.type =="purchase" %}
+                    구매
+                {% endif %}</td>
+                <td>{{ ad.brand }}</td>
+                <td>{{ ad.contents }}</td>
+                <td>{{ ad.detail_contents }}</td>
+                <td>{{ ad.point }}</td>
+                <td><button type="submit">삭제</button></td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock main%}

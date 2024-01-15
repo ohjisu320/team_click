@@ -2,6 +2,10 @@ from fastapi import APIRouter
 from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
+from models.ad_create import Ad_create
+from databases.connections import Database
+collection_ad_create = Database(Ad_create)
+
 
 router = APIRouter()
 
@@ -23,10 +27,29 @@ async def user(request:Request):
 async def point(request:Request):
     return templates.TemplateResponse(name="manager/point_data.html", context={'request':request})
 
-# 광고 관리 클릭했을 때 : 주소 /manager/ad
+# 광고 생성 클릭했을 때 : 주소 /manager/ad
 @router.get("/ad") # 펑션 호출 방식
 async def ad(request:Request):
     return templates.TemplateResponse(name="manager/ad_manage.html", context={'request':request})
+
+# 광고 리스트 클릭했을 때 : 주소 /manager/adlist
+@router.get("/adlist") # 펑션 호출 방식
+async def ad(request:Request):
+    ad_list = await collection_ad_create.get_all()
+    return templates.TemplateResponse(name="manager/ad_list.html", context={'request':request,
+                                                                            'ad_list':ad_list})
+
+
+
+# 광고 생성 클릭했을 때 : 주소 /manager/ad
+@router.post("/ad/submit") # 펑션 호출 방식
+async def ad(request:Request):
+    ad_dict = dict(await request.form())
+    ad_info = Ad_create(**ad_dict)
+    await collection_ad_create.save(ad_info)
+
+    return templates.TemplateResponse(name="manager/ad_create.html", context={'request':request})
+
 
 # 관리자 관리 클릭했을 때 : 주소 /manager/manager
 @router.get("/manager") # 펑션 호출 방식
