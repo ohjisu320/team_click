@@ -7,13 +7,13 @@ from selenium.webdriver.common.by import By
 import time
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
 
 # mongodb 연결
 from pymongo import MongoClient
 mongoclient = MongoClient("mongodb://192.168.10.235:27017")
 database = mongoclient['click_tech']
 coll = database['gifty_info']
-
 
 browser = webdriver.Chrome()
 browser.get(str("https://www.giftishow.com/brand/brandList.mhows"))

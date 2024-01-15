@@ -5,7 +5,7 @@
 {% block main %}
 
 <!-- 필터링 메뉴들 -->
-<div class="d-flex gap-2 justify-content-center py-5">
+<div class="d-flex gap-2 justify-content-center py-5 container">
     <a href="#">
         <span class="badge d-flex p-2 align-items-center text-emphasis bg-primary rounded-pill">
             <span class="px-1">전체</span>
@@ -51,6 +51,7 @@
             <span class="px-1">한식/중식/분식</span>
         </span>
     </a>
+    <!-- 나중에 줄 바꾸기 -->
     <a href="#">
         <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
             <span class="px-1">구이/족발</span>
@@ -94,13 +95,12 @@
 
 
 </div>
-<!-- 광고 상품 진열 -->
+<!-- 기프티콘 목록들 -->
 <div class="container">
     <div class="row">
-        {% for ad in ad_list %}
+        {% for gifty in ad_list %}
         <div class="col-3">
-            {{ad._id}}
-            <a href="/clicktech/alllist/detail/{{ad.id}}" class="justify-content-center" >
+            <a href="/clicktech/exchange/detail/{{ad.id}}" class="justify-content-center" >
                 <div class="card col-3 justify-content-center" style="width: 100%;">
                     <img src={{ad.thumnail}}
                         class="card-img-top text-center"  alt="광고 배너 이미지입니다.">
