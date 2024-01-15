@@ -5,5 +5,66 @@ FAQ
 
 
 {% block main %}
-FAQ 메인입니다.
+<form>
+    <div class="container col-10">
+        <div class="btn-group col-12" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-light btn-outline-dark col-2">전체</button>
+            <button type="button" class="btn btn-light btn-outline-dark col-2" value="과학" {{if
+                request._query_params.key_name=='과학' else '' }}>과학</button>
+            <button type="button" class="btn btn-light btn-outline-dark col-2" value="역사" {{if
+                request._query_params.key_name=='역사' else '' }}>역사</button>
+            <button type="button" class="btn btn-light btn-outline-dark col-2" value="문화" {{if
+                request._query_params.key_name=='문화' else '' }}>문화</button>
+            <button type="button" class="btn btn-light btn-outline-dark col-2" value="기술" {{if
+                request._query_params.key_name=='기술' else '' }}>기술</button>
+            <button type="button" class="btn btn-light btn-outline-dark col-2" value="사회" {{if
+                request._query_params.key_name=='사회' else '' }}>사회</button>
+        </div>
+        {% for faq in faqs %}
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        {{pagination.start_record_number + loop.index0}} {{faq.question_title}}
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"> {{faq.answer_main_text}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item {{ '' if pagination.has_previous_block else 'disabled' }}">
+                    <button type="submit" class="page-link" formaction="/faq/{{pagination.first_page}}">
+                        맨 처음
+                    </button>
+
+                </li>
+                <li class="page-item {{ '' if pagination.has_previous_page else 'disabled' }}">
+                    <button type="submit" class="page-link" formaction="/faq/{{pagination.previous_page}}">이전</button>
+                </li>
+                {% for page_num in pagination.current_page_range %}
+                <li class="page-item {{ 'active' if page_num == pagination.current_page else '' }}">
+                    <button type="submit" class="page-link" formaction="/faq/{{ page_num }}">
+                        {{page_num}}
+                    </button>
+                </li>
+                {% endfor %}
+                <li class="page-item {{ '' if pagination.has_next_page else 'disabled' }}">
+                    <button type="submit" class="page-link" formaction="/faq/{{ pagination.next_page }}">다음</button>
+                </li>
+                <li class="page-item {{ '' if pagination.has_next_block else 'disabled' }}">
+                    <button type="submit" class="page-link" formaction="/faq/{{ pagination.last_page }}">
+                        맨 끝
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</form>
 {% endblock main %}
