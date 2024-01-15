@@ -74,7 +74,6 @@ collection_ad_create = Database(Ad_create)
 @router.get("/alllist") # 펑션 호출 방식
 async def allad(request:Request):
     ad_list = await collection_ad_create.get_all()
-    print(ad_list)
     return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request,
                                                                             "ad_list":ad_list})
 
