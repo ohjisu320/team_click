@@ -7,6 +7,8 @@ class Ad_alllist(Document):
     brand : Optional[str] = None
     contents : Optional[str] = None
     thumnail : Optional[str] = None
+    detail_contents : Optional[str] = None
+    point : Optional[int] = None
 
     class Settings:
         name = "ad_alllist"
