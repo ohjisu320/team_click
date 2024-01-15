@@ -18,71 +18,28 @@
 </head>
 
 <body>
-    <nav class="d-flex flex-nowrap">
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: 100%;">
-            <a href="/manager" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"><img src="/img/image.png" width="80" height="auto" alt=""><span class="fs-4">Managers</span></a>
-
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#home"></use>
-                        </svg>
-                        회원 관리
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-body-emphasis">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#speedometer2"></use>
-                        </svg>
-                        포인트 통계
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-body-emphasis">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#table"></use>
-                        </svg>
-                        광고 관리
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-body-emphasis">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#table"></use>
-                        </svg>
-                        관리자 관리
-                    </a>
-                </li>
-
-
-            </ul>
-            <hr>
+    <div class="m-5 justify-content-start"><a href="/manager/"><img src="/img/image.png" width="80" height="auto" alt=""></a></div>
+    <div class="row">
+        <nav class="col-1 nav flex-column text-center">
+            <a class="nav-link active" aria-current="page" href="/manager/user">회원 관리</a>
+            <a class="nav-link" href="/manager/point">포인트 통계</a>
             <div class="dropdown">
-                <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>mdo</strong>
-                </a>
-                <ul class="dropdown-menu text-small shadow">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
+                <a class="nav-link dropdown-toggle" href="/manager/ad">광고 관리</a>
+                    <div class="nav-link dropdown-menu" >  
+                        <a class="nav-link dropdown-item" href="/manager/ad">광고 생성</a>
+                        <a class="nav-link dropdown-item" href="/manager/ad">광고 배치</a>
+                    </div>
+                
             </div>
-        </div>
-        </div>
-    </nav>
-    <main class="container">
-        {% block main %}
-        {% endblock main %}
-    </main>
+            <a class="nav-link disabled" aria-disabled="true" href="/manager/manager">관리자 관리</a>
+        </nav>
+   
+        
+        <main class="container col-10">
+            {% block main %}
+            {% endblock main %}
+        </main>
+    </div>
 
 
     <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">

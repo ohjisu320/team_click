@@ -3,5 +3,18 @@
 Click-Tech 광고
 {% endblock title%}
 {% block main %}
-광고 상세입니다
+
+<div class="mt-5">
+    <div  class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">{{ad_detail.type}}</div>
+    <div class="row">
+        <div class="col-6"><img src={{ad_detail.thumnail}} style="width: 100%;" alt=""></div>
+        <div class="col-6">
+            <div>| {{ad_detail.brand}}</div>
+            <div>| {{ad_detail.point}}point</div>
+            <div>| {{ad_detail.detail_contents}}</div>
+        </div>
+    </div>
+</div>
+
 {% endblock main %}
+
