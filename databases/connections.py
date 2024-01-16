@@ -9,6 +9,7 @@ from models.ad_main import Ad_main
 from models.ad_create import Ad_create
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic_settings import BaseSettings
+from routes.paginations import Paginations
 
 
 
@@ -53,3 +54,15 @@ class Database:
     async def save(self, document) -> None:
         await document.create()
         return None
+    
+    async def getsbyconditionswithpagination(self
+                                            , conditions:dict, page_number) -> [Any]:
+        # find({})
+        total = await self.model.find(conditions).count()
+        pagination = Paginations(total_records=total, current_page=page_number)
+        documents = await self.model.find(conditions).skip(pagination.start_record_number).limit(pagination.records_per_page).to_list()
+        if documents:
+            return documents, pagination
+        return False 
+
+

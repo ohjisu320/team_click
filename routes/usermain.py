@@ -72,9 +72,16 @@ async def user_input_post(request:Request):
 from models.ad_create import Ad_create
 collection_ad_create = Database(Ad_create)
 # 전체리스트 클릭했을 때 : 주소 /clicktech/alllist
-@router.get("/alllist") # 펑션 호출 방식
+@router.get("/alllist/") # 펑션 호출 방식
 async def allad(request:Request):
     ad_list = await collection_ad_create.get_all()
+    return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request,
+                                                                            "ad_list":ad_list})
+
+@router.get("/alllist/{type}") # 펑션 호출 방식
+async def allad(request:Request, type):
+    conditions = {'type': { '$regex': type }}
+    ad_list = await collection_ad_create.getsbyconditions(conditions)
     return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request,
                                                                             "ad_list":ad_list})
 
@@ -136,7 +143,7 @@ async def faq_list(request:Request, page_number: Optional[int] = 1):
     except:
         search_word = None
     if search_word:     # 검색어 작성
-        conditions = {list_faq['categories'] : { '$regex': list_faq["word"] }}
+        conditions = {'categories' : { '$regex': list_faq["word"] }}
     
     list_faq, pagination = await database_faq.getsbyconditionswithpagination(conditions
                                                                      ,page_number)
