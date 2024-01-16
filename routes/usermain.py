@@ -3,8 +3,8 @@ from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from databases.connections import Database
-from models.user_info import User_info
-from models.faq import Faq
+from databases.mongo_connect import User_info
+from databases.mongo_connect import Faq
 
 router = APIRouter()
 app = FastAPI()
@@ -12,7 +12,7 @@ collection_user = Database(User_info)
 
 templates = Jinja2Templates(directory="templates/")
 from databases.connections import Database
-from models.ad_main import Ad_main
+from databases.mongo_connect import Ad_main
 collection_ad_main = Database(Ad_main)
 
 # 로고 클릭했을 때 : 주소 /clicktech/
@@ -45,7 +45,7 @@ app.include_router(router)
 
 # database 의 connections에 정의된 Database 클래스와 user_info collection을 정의한 User_info 클래스를 import
 
-from models.user_info import User_info
+from databases.mongo_connect import User_info
 collection_user = Database(User_info)
 @router.post("/join/step4") # 펑션 호출 방식
 async def user_input_post(request:Request):
@@ -71,7 +71,7 @@ async def user_input_post(request:Request):
 # async def join(request:Request):
 #     return templates.TemplateResponse(name="join/step4.html", context={'request':request})
 
-from models.ad_create import Ad_create
+from databases.mongo_connect import Ad_create
 collection_ad_create = Database(Ad_create)
 # 전체리스트 클릭했을 때 : 주소 /clicktech/alllist
 @router.get("/alllist/") # 펑션 호출 방식
@@ -94,7 +94,7 @@ async def detailad(request:Request, object_id):
     return templates.TemplateResponse(name="offerwall/allad_detail.html", context={'request':request,
                                                                                    "ad_detail":ad_detail})
 
-from models.gifty_info import Gifty_info
+from databases.mongo_connect import Gifty_info
 collection_gifty = Database(Gifty_info)
 # 쿠폰교환 클릭했을 때 : 주소 /clicktech/exchange
 @router.get("/exchange") # 펑션 호출 방식
@@ -139,7 +139,7 @@ async def exchange(request:Request, object_id : PydanticObjectId):
 async def order(request : Request, object_id : PydanticObjectId ) :
     # collection_user.get_all 엥 근데 이거 나중에 해야할듯....? 그럼 모든 페이지에 사용자의 ID가 있어야 함
     gifty = await collection_gifty.get(object_id)
-    return templates.TemplateResponse(name="exchange/gifticon_order.html", context= {'request':request,
+    return templates.TemplateResponse(name="exchange/gifticon_order", context= {'request':request,
                                                                                      "gifty":gifty})
 
 

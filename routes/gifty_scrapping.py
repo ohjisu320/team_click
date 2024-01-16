@@ -20,7 +20,7 @@ browser = webdriver.Chrome()
 browser.get(str("https://www.giftishow.com/brand/brandList.mhows"))
 
 coll.delete_many({})
-
+00222
 # 각 항목에 대한 요소들
 list_element = browser.find_elements(by=By.CSS_SELECTOR, value="#swiperWrapper > li")
 for style_list in list_element[1:] :
