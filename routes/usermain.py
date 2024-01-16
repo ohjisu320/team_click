@@ -130,7 +130,7 @@ async def exchange(request:Request, gifty_style):
 async def exchange(request:Request, object_id):
     condition = {'_id' : {'$regex' : object_id} }
     gifty_list = await collection_gifty.getsbyconditions(condition)
-    return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request
+    return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request,
                                                                                      "gifty_list": gifty_list})
 
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
@@ -156,30 +156,27 @@ async def faq(request:Request):
 
 
 collection_faq = Database(Faq)
-from typing import Optional
-@router.get("/faq")
-# @router.get("/faq/{page_number}")
-async def faq_list(request:Request, page_number: Optional[int] = 1):
-    list_faq = dict(request._query_params)
-    print(list_faq)
-    conditions = { }
-    # db.answers.find({'name':{ '$regex': '김' }})
-    # { 'name': { '$regex': user_dict.word } }
-<<<<<<< HEAD
-    conditions = { }
-    try :
-        search_word = list_faq["word"]
-    except:
-        search_word = None
-    if search_word:     # 검색어 작성
-        conditions = {'categories' : { '$regex': list_faq["word"] }}
+# from typing import Optional
+# @router.get("/faq")
+# # @router.get("/faq/{page_number}")
+# async def faq_list(request:Request, page_number: Optional[int] = 1):
+#     list_faq = dict(request._query_params)
+#     print(list_faq)
+#     conditions = { }
+#     # db.answers.find({'name':{ '$regex': '김' }})
+#     # { 'name': { '$regex': user_dict.word } }
+
+#     conditions = { }
+#     try :
+#         search_word = list_faq["word"]
+#     except:
+#         search_word = None
+#     if search_word:     # 검색어 작성
+#         conditions = {'categories' : { '$regex': list_faq["word"] }}
     
-    list_faq, pagination = await database_faq.getsbyconditionswithpagination(conditions
-=======
-    list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
->>>>>>> c879b25ee2c1b99fd0e9e981030926c62469df7d
-                                                                     ,page_number)
-    return templates.TemplateResponse(name="faq/faq_main.html"
-                                      , context={'request':request
-                                                 , 'faqs' : list_faq,
-                                                'pagination': pagination })
+#     list_faq, pagination = await database_faq.getsbyconditionswithpagination(conditions)
+
+#     return templates.TemplateResponse(name="faq/faq_main.html"
+#                                       , context={'request':request
+#                                                  , 'faqs' : list_faq,
+#                                                 'pagination': pagination })
