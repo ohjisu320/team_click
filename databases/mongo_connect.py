@@ -81,6 +81,7 @@ class User_info(Document, BaseModel):
     user_terms2: Optional[str] = None
     user_terms3: Optional[str] = None
     user_terms4: Optional[str] = None
+    point: Optional[int] = None
 
     class Settings:
         name = "user_info"

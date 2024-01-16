@@ -32,12 +32,12 @@ async def login(request:Request):
 # Sign-in 클릭했을 때 : 주소 /clicktech/join
 @router.get("/join") # 펑션 호출 방식
 async def join(request:Request):
-    return templates.TemplateResponse(name="join/step1.html", context={'request':request})
+    return templates.TemplateResponse(name="join/step2.html", context={'request':request})
 
 # Sign-in 클릭했을 때 : 주소 /clicktech/join/step2
-@router.get("/join/step2") # 펑션 호출 방식
-async def join(request:Request):
-    return templates.TemplateResponse(name="join/step2.html", context={'request':request})
+# @router.get("/join/step2") # 펑션 호출 방식
+# async def join(request:Request):
+#     return templates.TemplateResponse(name="join/step2.html", context={'request':request})
 
 @router.post("/join/step3")
 async def read_item(request: Request, user_terms1: str = Form('off'), user_terms2: str = Form('off'), user_terms3: str = Form('off'), user_terms4: str = Form('off')):
@@ -49,9 +49,10 @@ app.include_router(router)
 
 from databases.mongo_connect import User_info
 collection_user = Database(User_info)
-@router.post("/join/step4") # 펑션 호출 방식
+@router.post("/login") # 펑션 호출 방식
 async def user_input_post(request:Request):
     user_dict = dict(await request.form())
+    user_dict['point'] = 1000
     try:
         user_dict['user_terms1'] = user_dict.get('user_terms1', 'off')
         user_dict['user_terms2'] = user_dict.get('user_terms2', 'off')
@@ -65,7 +66,7 @@ async def user_input_post(request:Request):
         await collection_user.save(user)
     # 리스트 정보
     user_list = await collection_user.get_all()
-    return templates.TemplateResponse(name="join/step4.html"
+    return templates.TemplateResponse(name="login/login.html"
                                       , context={'request':request, "user_info":user_list})
 
 # # Sign-in 클릭했을 때 : 주소 /clicktech/join
