@@ -121,9 +121,9 @@ async def exchange(request:Request, gifty_style):
 # 쿠폰교환페이지에서 쿠폰 하나를 클릭했을 때 : 주소 /clicktech/exchange/detail
 @router.get("/exchange/detail/{object_id}") # 펑션 호출 방식
 async def exchange(request:Request, object_id):
-    condition = {'_id' : {'$regex' : object_id} }
+    condition = {'_id' : {'$regex' : object_id}}
     gifty_list = await collection_gifty.getsbyconditions(condition)
-    return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request
+    return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request,
                                                                                      "gifty_list": gifty_list})
 
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
