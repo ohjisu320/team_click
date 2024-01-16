@@ -7,7 +7,7 @@ FAQ
 {% block main %}
 <form>
     <div class="container col-10">
-        <div class="btn-group col-12" role="group" aria-label="Basic example">
+        <!-- <div class="btn-group col-12" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-light btn-outline-dark col-2">전체</button>
             <button type="button" class="btn btn-light btn-outline-dark col-2" value="과학" {{if
                 request._query_params.key_name=='과학' else '' }}>과학</button>
@@ -19,24 +19,28 @@ FAQ
                 request._query_params.key_name=='기술' else '' }}>기술</button>
             <button type="button" class="btn btn-light btn-outline-dark col-2" value="사회" {{if
                 request._query_params.key_name=='사회' else '' }}>사회</button>
-        </div>
-        {% for faq in faqs %}
-        <div class="accordion accordion-flush" id="accordionFlushExample">
+        </div> -->
+        {%for faq in faqs %}
+        <!-- <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                         {{pagination.start_record_number + loop.index0}} {{faq.question_title}}
                     </button>
-                </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                </h2> -->
+
+
+                {{faq.categories}}
+            <!-- <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body"> {{faq.answer_main_text}}
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+        {% endfor %}
     </div>
-    <div>
+    <!-- <div>
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
                 <li class="page-item {{ '' if pagination.has_previous_block else 'disabled' }}">
@@ -65,6 +69,6 @@ FAQ
                 </li>
             </ul>
         </nav>
-    </div>
+    </div> -->
 </form>
 {% endblock main %}

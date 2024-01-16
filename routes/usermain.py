@@ -5,6 +5,7 @@ from fastapi import Request
 from databases.connections import Database
 from models.user_info import User_info
 from models.faq import Faq
+
 router = APIRouter()
 app = FastAPI()
 collection_user = Database(User_info)
@@ -119,26 +120,19 @@ async def faq(request:Request):
 
 
 
-database_faq = Database(Faq)
+collection_faq = Database(Faq)
 from typing import Optional
 @router.get("/faq")
-@router.get("/faq/{page_number}")
+# @router.get("/faq/{page_number}")
 async def faq_list(request:Request, page_number: Optional[int] = 1):
     list_faq = dict(request._query_params)
     print(list_faq)
+    conditions = { }
     # db.answers.find({'name':{ '$regex': '김' }})
     # { 'name': { '$regex': user_dict.word } }
-    conditions = { }
-    try :
-        search_word = list_faq["word"]
-    except:
-        search_word = None
-    if search_word:     # 검색어 작성
-        conditions = {list_faq['categories'] : { '$regex': list_faq["word"] }}
-    
-    list_faq, pagination = await database_faq.getsbyconditionswithpagination(conditions
+    list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
                                                                      ,page_number)
     return templates.TemplateResponse(name="faq/faq_main.html"
                                       , context={'request':request
-                                                 , 'faqs' : list_faq
-                                                  ,'pagination' : pagination })
+                                                 , 'faqs' : list_faq,
+                                                'pagination': pagination })
