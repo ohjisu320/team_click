@@ -9,15 +9,13 @@ Click-Tech
 
 
 <div class="container row">
-    <div>광고 리스트 보기</div>
+    <div>공지사항 리스트 보기</div>
     <div class="text-end">
         <form class="">
             <select name="key" id="">
-                <option value="type">광고타입</option>
-                <option value="brand">브랜드</option>
-                <option value="contents">광고제목</option>
-                <option value="detail_contents">광고내용</option>
-                <option value="point">포인트</option>
+                <option value="notice_title">제목</option>
+                <option value="main_text">내용</option>
+                <option value="date">날짜</option>
             </select>
             <input type="search" name="word" id="">
             <button type="submit" formmethod="get">검색</button>
@@ -31,36 +29,21 @@ Click-Tech
             <thead class="text-center">
                 <tr>
                     <th scope="col">번호</th>
-                    <th scope="col">광고타입</th>
-                    <th scope="col">브랜드</th>
-                    <th scope="col">광고제목</th>
-                    <th scope="col">광고내용</th>
-                    <th scope="col">포인트</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">내용</th>
+                    <th scope="col">날짜</th>
                     <th scope="col">삭제</th>
-                    <th scope="col">메인으로 등록</th>
+                    <th scope="col">수정</th>
                 </tr>
             </thead>
 
             <tbody>
-                {% for ad in ad_list %}
+                {% for notice in list_notice %}
                 <tr>
                     <td> {{loop.index}}</td>
-                    <td>
-                        {% if ad.type =="download_app" %}
-                        앱 설치
-                        {% elif ad.type =="join" %}
-                        회원가입
-                        {% elif ad.type =="newsletter" %}
-                        뉴스레터 구독
-                        {% elif ad.type =="enter" %}
-                        사이트 접속
-                        {% elif ad.type =="purchase" %}
-                        구매
-                        {% endif %}</td>
-                    <td>{{ ad.brand }}</td>
-                    <td>{{ ad.contents }}</td>
-                    <td>{{ ad.detail_contents }}</td>
-                    <td>{{ ad.point }}</td>
+                    <td>{{ notice.notice_title }}</td>
+                    <td>{{ notice.main_text }}</td>
+                    <td>{{ notice.date }}</td>
                     <td><button type="submit">삭제</button></td>
                     <td><button type="submit">메인</button></td>
                 </tr>
