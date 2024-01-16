@@ -68,8 +68,6 @@ async def ad(request:Request, page_number: Optional[int] = 1):
                                                                             'pagination':pagination})
 
 
-
-
 # 광고 생성 클릭했을 때 : 주소 /manager/ad
 @router.post("/ad/submit") # 펑션 호출 방식
 async def ad(request:Request):
@@ -118,51 +116,10 @@ async def listfaq_post(request:Request, page_number: Optional[int] = 1):
 async def createfaq(request:Request):
     return templates.TemplateResponse(name="manager/faq_create.html", context={'request':request})
 
-# FAQ 생성/관리에서 생성 클릭했을 때 : 주소 /manager/faq/delete/object_id
-@router.get("/faq/delete/{object_id}")
-async def delete_review(request: Request, object_id:PydanticObjectId):
-    await collection_faq.delete_one(object_id)
-
-    return templates.TemplateResponse(name="manager/notice_delete.html", context={'request':request})
-
-# ######################################################################
-# 공지사항 생성/관리 클릭했을 때 : 주소 /manager/faq
-
-@router.get("/notice/{page_number}")
+# 공지사항 생성/관리 클릭했을 때 : 주소 /manager/notice
 @router.get("/notice") # 펑션 호출 방식
-async def listnotice_get(request:Request, page_number: Optional[int] = 1):
-    list_faq = await collection_notice.get_all()
-    try : 
-        user_dict = dict(request._query_params)
-        conditions = { user_dict['key'] : { '$regex': user_dict["word"] } }
-    except :
-        conditions = { }
-    list_faq, pagination = await collection_notice.getsbyconditionswithpagination(conditions, page_number)
-    return templates.TemplateResponse(name="manager/notice_list.html", context={'request':request,
-                                                                             'list_faq':list_faq,
-                                                                             'pagination':pagination})
-
-@router.get("/notice/{page_number}")
-@router.post("/notice") # 펑션 호출 방식
-async def listnotice_post(request:Request, page_number: Optional[int] = 1):
-    dict_faq = dict(await request.form())
-    faq = Faq(**dict_faq)
-    await collection_notice.save(faq)
-    list_faq = await collection_notice.get_all()
-    try : 
-        user_dict = dict(request._query_params)
-        conditions = { user_dict['key'] : { '$regex': user_dict["word"] } }
-    except :
-        conditions = { }
-    list_faq, pagination = await collection_notice.getsbyconditionswithpagination(conditions, page_number)
-    return templates.TemplateResponse(name="manager/notice_list.html", context={'request':request,
-                                                                             'list_faq':list_faq,
-                                                                             'pagination':pagination})
-
-# FAQ 생성/관리에서 생성 클릭했을 때 : 주소 /manager/faq/create
-@router.post("/notice/create") # 펑션 호출 방식
 async def createnotice(request:Request):
-    return templates.TemplateResponse(name="manager/notice_create.html", context={'request':request})
+    return templates.TemplateResponse(name="manager/notice_list.html", context={'request':request})
 
 # FAQ 생성/관리에서 생성 클릭했을 때 : 주소 /manager/faq/delete/object_id
 @router.get("/faq/delete/{object_id}")
