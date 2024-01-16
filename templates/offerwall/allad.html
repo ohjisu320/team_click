@@ -15,27 +15,27 @@ Click-Tech 광고
     </a>
     <a href="#">
         <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
-            <span class="px-1">앱 설치</span>
+            <span class="px-1" value="download_app">앱 설치</span>
         </span>
     </a>
     <a href="#">
         <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
-            <span class="px-1">회원가입</span>
+            <span class="px-1" value="join">회원가입</span>
         </span>
     </a>
     <a href="#">
         <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
-            <span class="px-1">뉴스레터 구독</span>
+            <span class="px-1" value="newsletter">뉴스레터 구독</span>
         </span>
     </a>
     <a href="#">
         <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
-            <span class="px-1">사이트 접속</span>
+            <span class="px-1" value="enter">사이트 접속</span>
         </span>
     </a>
     <a href="#">
         <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
-            <span class="px-1">구매</span>
+            <span class="px-1" value="purchase">구매</span>
         </span>
     </a>
 
@@ -44,6 +44,7 @@ Click-Tech 광고
 <!-- 광고 상품 진열 -->
 <div class="container">
     <div class="row">
+        
         {% for ad in ad_list %}
         <div class="col-3">
             <a href="/clicktech/alllist/detail/{{ad.id}}" class="justify-content-center" >

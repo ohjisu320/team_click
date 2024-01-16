@@ -76,7 +76,6 @@ collection_ad_create = Database(Ad_create)
 @router.get("/alllist") # 펑션 호출 방식
 async def allad(request:Request):
     ad_list = await collection_ad_create.get_all()
-    print(ad_list)
     return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request,
                                                                             "ad_list":ad_list})
 
@@ -87,15 +86,18 @@ async def detailad(request:Request, object_id):
     return templates.TemplateResponse(name="offerwall/allad_detail.html", context={'request':request,
                                                                                    "ad_detail":ad_detail})
 
-
+from models.gifty_info import Gifty_info
+collection_gifty = Database(Gifty_info)
 # 쿠폰교환 클릭했을 때 : 주소 /clicktech/exchange
 @router.get("/exchange") # 펑션 호출 방식
 async def exchange(request:Request):
-    return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request})
+    gifty_list = await collection_gifty.get_all()
+    return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request,
+                                                                                   "gifty_list" : gifty_list})
 
 # 쿠폰교환페이지에서 쿠폰 하나를 클릭했을 때 : 주소 /clicktech/exchange/detail
-@router.get("/exchange/detail") # 펑션 호출 방식
-async def exchange(request:Request):
+@router.post("/exchange/detail/{object_id}") # 펑션 호출 방식
+async def exchange(request:Request, object_id):
     return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request})
 
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
