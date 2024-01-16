@@ -3,10 +3,10 @@
 쿠폰교환
 {% endblock title%}
 {% block main %}
-s
+
 <!-- 필터링 메뉴들 -->
 <div class="d-flex gap-2 justify-content-center py-5 container-fluid">
-    <div class="row">
+    <div class="row justify-content-md-center">
         <a class="col" href="/clicktech/exchange/">
             <span class="badge d-flex p-2 align-items-center text-emphasis bg-primary rounded-pill">
                 <span class="px-1">전체</span>
@@ -18,7 +18,7 @@ s
             </span>
         </a>
         <a lass="col" href="/clicktech/exchange/bake">
-            <span clas="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
                 <span class="px-1">베이커리/도넛/떡</span>
             </span>
         </a>
@@ -100,15 +100,16 @@ s
 
 
 </div>
+
 <!-- 기프티콘 목록들 -->
 <div class="container">
     <div class="row">
-        {% if ad_main == False %}
-        <div>아직 상품이 없습니다룽</div>
+        {% if gifty_list == False %}
+        <h2 class="container justify-content-center">아직 상품이 없음다</h2>
         {% else %}
         {% for gifty in gifty_list %}
         <div class="col-3">
-            <a href="/clicktech/exchange/detail/{{gifty._id}}" class="justify-content-center">
+            <a href="/clicktech/exchange/detail/{{gifty.id}}" class="justify-content-center">
                 <div class="card col-3 justify-content-center" style="width: 100%;">
                     <img src={{gifty.gifty_image}} class="card-img-top text-center" alt="기프티콘 이미지입니다.">
                     <div class="card-body">
@@ -118,14 +119,10 @@ s
                     </div>
                 </div>
             </a>
-            <p class="chips">
-                <span
-                    class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">{{gifty.gifty_style}}</span>
-            </p>
-            {% endfor %}
-            {% endif %}
         </div>
+        {% endfor %}
     </div>
+    {% endif %}
 </div>
 
 {% endblock main %}

@@ -4,6 +4,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from models.ad_create import Ad_create
 from databases.connections import Database
+from typing import Optional
+from routes.paginations import Paginations
 collection_ad_create = Database(Ad_create)
 
 
@@ -34,21 +36,32 @@ async def ad(request:Request):
 
 
 # 광고 리스트 클릭했을 때 : 주소 /manager/adlist
-@router.get("/adlist") # 펑션 호출 방식
-async def ad(request:Request):
+@router.get("/adlist/{page_number}") # 펑션 호출 방식
+@router.get("/adlist")
+async def ad(request:Request, page_number: Optional[int] = 1):
     try : 
         user_dict = dict(request._query_params)
-        if user_dict['word'] == "앱 설치" : user_dict['key'] ="download_app"
-        elif  user_dict['word'] == "회원가입" :user_dict['key'] ="join" 
-        elif user_dict['word'] == "뉴스레터 구독": user_dict['key'] ="newsletter"    
-        elif user_dict['word'] =="사이트 접속": user_dict['key'] = "enter" 
-        elif user_dict['word'] == "구매" : user_dict['key'] ="purchase"
-        conditions = { user_dict['key'] : { '$regex': user_dict["word"] } }
-        ad_list = await collection_ad_create.getsbyconditions(conditions)
+        ad_list = await collection_ad_create.get_all()
+        conditions = { }
+        # total = len(ad_list)
+        # pagination = Paginations(total,page_number)
+        try :
+            if user_dict['key'] == "type" :
+                if user_dict['word'] == "앱 설치" : user_dict['word'] ="download_app"
+                elif  user_dict['word'] == "회원가입" :user_dict['word'] ="join" 
+                elif user_dict['word'] == "뉴스레터 구독": user_dict['word'] ="newsletter"    
+                elif user_dict['word'] =="사이트 접속": user_dict['word'] = "enter" 
+                elif user_dict['word'] == "구매" : user_dict['word'] ="purchase"
+            conditions = { user_dict['key'] : { '$regex': user_dict["word"] } }
+        except :
+            conditions = { }
+        ad_list, pagination = await collection_ad_create.getsbyconditionswithpagination(conditions, page_number)
     except :
+        pagination=1
         ad_list = await collection_ad_create.get_all()
     return templates.TemplateResponse(name="manager/ad_list.html", context={'request':request,
-                                                                            'ad_list':ad_list})
+                                                                            'ad_list':ad_list,
+                                                                            'pagination':pagination})
 
 
 
@@ -61,6 +74,17 @@ async def ad(request:Request):
     await collection_ad_create.save(ad_info)
 
     return templates.TemplateResponse(name="manager/ad_create.html", context={'request':request})
+
+
+# FAQ 생성/관리 클릭했을 때 : 주소 /manager/faq
+@router.get("/faq") # 펑션 호출 방식
+async def createfaq(request:Request):
+    return templates.TemplateResponse(name="manager/faq_create.html", context={'request':request})
+
+# 공지사항 생성/관리 클릭했을 때 : 주소 /manager/notice
+@router.get("/notice") # 펑션 호출 방식
+async def createnotice(request:Request):
+    return templates.TemplateResponse(name="manager/notice_create.html", context={'request':request})
 
 
 # 관리자 관리 클릭했을 때 : 주소 /manager/manager

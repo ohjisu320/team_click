@@ -5,7 +5,12 @@ from fastapi import Request
 from databases.connections import Database
 from models.user_info import User_info
 from models.faq import Faq
+<<<<<<< HEAD
 from routes.paginations import Paginations
+=======
+from typing import Optional
+
+>>>>>>> e44224792795782700a503ab2364cc47438ceef2
 router = APIRouter()
 app = FastAPI()
 collection_user = Database(User_info)
@@ -14,6 +19,7 @@ templates = Jinja2Templates(directory="templates/")
 from databases.connections import Database
 from models.ad_main import Ad_main
 collection_ad_main = Database(Ad_main)
+
 # 로고 클릭했을 때 : 주소 /clicktech/
 @router.get("/") # 펑션 호출 방식
 async def usermain(request:Request):
@@ -82,7 +88,7 @@ async def allad(request:Request):
 @router.get("/alllist/{type}") # 펑션 호출 방식
 async def allad(request:Request, type):
     conditions = {'type': { '$regex': type }}
-    ad_list = await collection_ad_create.getsbyconditions(conditions)
+    ad_list= await collection_ad_create.getsbyconditions(conditions)
     return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request,
                                                                             "ad_list":ad_list})
 
@@ -125,13 +131,24 @@ async def exchange(request:Request, gifty_style):
     return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request,
                                                                                    "gifty_list" : gifty_list})
 
+from beanie import PydanticObjectId
 # 쿠폰교환페이지에서 쿠폰 하나를 클릭했을 때 : 주소 /clicktech/exchange/detail
 @router.get("/exchange/detail/{object_id}") # 펑션 호출 방식
-async def exchange(request:Request, object_id):
-    condition = {'_id' : {'$regex' : object_id}}
-    gifty_list = await collection_gifty.getsbyconditions(condition)
+async def exchange(request:Request, object_id : PydanticObjectId):
+    gifty = await collection_gifty.get(object_id)
     return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request,
-                                                                                     "gifty_list": gifty_list})
+                                                                                     "gifty": gifty})
+
+# 쿠폰교환페이지에서 쿠폰구매를 눌렀을 때 : 주소 /
+@router.get("/exchange/order/{object_id}")  # 구매하는 사용자의 ID 필요
+async def order(request : Request, object_id : PydanticObjectId ) :
+    # collection_user.get_all 엥 근데 이거 나중에 해야할듯....? 그럼 모든 페이지에 사용자의 ID가 있어야 함
+    gifty = await collection_gifty.get(object_id)
+    return templates.TemplateResponse(name="exchange/gifticon_order.html", context= {'request':request,
+                                                                                     "gifty":gifty})
+
+
+# 쿠폰교환페이지에서 쿠폰구매를 눌렀을 때(로그인이 되지 않았을 경우 로그인 페이지로 이동) : 주소 /
 
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
 @router.get("/notice") # 펑션 호출 방식
@@ -146,6 +163,7 @@ async def notice(request:Request):
 from typing import Optional
 # # FAQ 클릭했을 때 : 주소 /clicktech/faq
 collection_faq = Database(Faq)
+<<<<<<< HEAD
 @router.get("/faq") # 펑션 호출 방식
 async def faq(request:Request,page_number: Optional[int] = 1):
     await request.form()
@@ -157,6 +175,33 @@ async def faq(request:Request,page_number: Optional[int] = 1):
     return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
                                                                          'list_faq' : list_faq_pagination,
                                                                          'pagination': pagination })
+=======
+# @router.get("/faq") # 펑션 호출 방식
+# async def faq(request:Request):
+#     list_faq = await collection_faq.get_all()
+#     return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
+#                                                                          'list_faq' : list_faq})
+
+
+@router.get("/faq")
+# @router.get("/faq/{categories}")
+async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
+    faq_dict = dict(await request.form())
+    print(faq_dict)
+    conditions = { }
+    try :
+        conditions = { }
+        list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
+                                                                     ,page_number)
+    except:
+        conditions = {'categories' : { '$regex': categories }}
+        list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
+                                                                     ,page_number)
+    return templates.TemplateResponse(name="faq/faq_main.html"
+                                      , context={'request':request,
+                                                 'list_faq' : list_faq,
+                                                'pagination': pagination })
+>>>>>>> e44224792795782700a503ab2364cc47438ceef2
 
 @router.get("/faq/{categories}") # 펑션 호출 방식
 async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
