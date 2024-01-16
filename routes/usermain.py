@@ -84,7 +84,7 @@ async def allad(request:Request):
 @router.get("/alllist/{type}") # 펑션 호출 방식
 async def allad(request:Request, type):
     conditions = {'type': { '$regex': type }}
-    ad_list, pagenation = await collection_ad_create.getsbyconditions(conditions)
+    ad_list= await collection_ad_create.getsbyconditions(conditions)
     return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request,
                                                                             "ad_list":ad_list})
 

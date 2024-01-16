@@ -5,6 +5,7 @@ from fastapi import Request
 from models.ad_create import Ad_create
 from databases.connections import Database
 from typing import Optional
+from routes.paginations import Paginations
 collection_ad_create = Database(Ad_create)
 
 
@@ -35,20 +36,26 @@ async def ad(request:Request):
 
 
 # 광고 리스트 클릭했을 때 : 주소 /manager/adlist
-@router.get("/adlist")
 @router.get("/adlist/{page_number}") # 펑션 호출 방식
+@router.get("/adlist")
 async def ad(request:Request, page_number: Optional[int] = 1):
     try : 
         user_dict = dict(request._query_params)
-        print(user_dict)
-        if user_dict['key'] == "type" :
-            if user_dict['word'] == "앱 설치" : user_dict['word'] ="download_app"
-            elif  user_dict['word'] == "회원가입" :user_dict['word'] ="join" 
-            elif user_dict['word'] == "뉴스레터 구독": user_dict['word'] ="newsletter"    
-            elif user_dict['word'] =="사이트 접속": user_dict['word'] = "enter" 
-            elif user_dict['word'] == "구매" : user_dict['word'] ="purchase"
-        conditions = { user_dict['key'] : { '$regex': user_dict["word"] } }
-        ad_list, pagenation = await collection_ad_create.getsbyconditionswithpagination(conditions, page_number)
+        ad_list = await collection_ad_create.get_all()
+        conditions = { }
+        # total = len(ad_list)
+        # pagination = Paginations(total,page_number)
+        try :
+            if user_dict['key'] == "type" :
+                if user_dict['word'] == "앱 설치" : user_dict['word'] ="download_app"
+                elif  user_dict['word'] == "회원가입" :user_dict['word'] ="join" 
+                elif user_dict['word'] == "뉴스레터 구독": user_dict['word'] ="newsletter"    
+                elif user_dict['word'] =="사이트 접속": user_dict['word'] = "enter" 
+                elif user_dict['word'] == "구매" : user_dict['word'] ="purchase"
+            conditions = { user_dict['key'] : { '$regex': user_dict["word"] } }
+        except :
+            conditions = { }
+        ad_list, pagination = await collection_ad_create.getsbyconditionswithpagination(conditions, page_number)
     except :
         pagination=1
         ad_list = await collection_ad_create.get_all()
