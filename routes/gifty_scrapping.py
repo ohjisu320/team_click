@@ -8,6 +8,7 @@ import time
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # mongodb 연결
 from pymongo import MongoClient
@@ -24,7 +25,10 @@ coll.delete_many({})
 list_element = browser.find_elements(by=By.CSS_SELECTOR, value="#swiperWrapper > li")
 for style_list in list_element[1:] :
     # 항목 클릭하기
-    style_list.find_element(by=By.CSS_SELECTOR, value="li > a").click()
+    try : 
+        style_list.find_element(by=By.CSS_SELECTOR, value="li > a").click()
+    except NoSuchElementException :
+        pass
     gifty_style = style_list.find_element(by=By.CSS_SELECTOR, value="#swiperWrapper > li > a > p").text # 스타일
 
     # 마지막까지 스크롤하기
@@ -46,7 +50,9 @@ for style_list in list_element[1:] :
     gifty_list = browser.find_elements(by=By.CSS_SELECTOR, value="#goodsSection >li ")
     for gifty in gifty_list :
         gifty.find_element(by=By.CSS_SELECTOR, value="#goodsSection > li > a").click()
-        browser.implicitly_wait(5)
+        browser.implicitly_wait(10)
+        # wait = WebDriverWait(browser, 2)
+        # wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.txtWrap > div.txtWrap-min > div.itemPrice")))
         # 데이터 뽑아오기
         gifty_image =  browser.find_element(by=By.CSS_SELECTOR, value="#renewal > div.itemDetail.comp > div > div.imgWrap > img").get_attribute('src') #이미지
         gifty_brand = browser.find_element(by=By.CSS_SELECTOR, value="div.txtWrap-min > a > div > span").text #브랜드
@@ -63,7 +69,7 @@ for style_list in list_element[1:] :
         coll.insert_one({'gifty_style' : gifty_style, 'gifty_image' : gifty_image, 'gifty_brand' : gifty_brand, 'gifty_name' : gifty_name, 'gifty_price' : gifty_price,'gifty_detail' : gifty_detail, 'gifty_cautioin' : gifty_caution})
 
         browser.back()
-        browser.implicitly_wait(5)
+        browser.implicitly_wait(10)
         pass
 
 

@@ -3,7 +3,7 @@
 쿠폰교환
 {% endblock title%}
 {% block main %}
-
+s
 <!-- 필터링 메뉴들 -->
 <div class="d-flex gap-2 justify-content-center py-5 container-fluid">
     <div class="row">
@@ -18,7 +18,7 @@
             </span>
         </a>
         <a lass="col" href="/clicktech/exchange/bake">
-            <span class="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
+            <span clas="badge d-flex p-2 align-items-center text-primary-emphasis bg-light rounded-pill">
                 <span class="px-1">베이커리/도넛/떡</span>
             </span>
         </a>
@@ -97,19 +97,21 @@
             </span>
         </a>
     </div>
-        
-        
-    </div>
-    <!-- 기프티콘 목록들 -->
-    <div class="container">
-        <div class="row">
-            {% for gifty in gifty_list %}
-            <div class="col-3">
-                <a href="/clicktech/exchange/detail/{{gifty._id}}" class="justify-content-center" >
-                    <div class="card col-3 justify-content-center" style="width: 100%;">
-                        <img src={{gifty.gifty_image}}
-                        class="card-img-top text-center"  alt="기프티콘 이미지입니다.">
-                        <div class="card-body">
+
+
+</div>
+<!-- 기프티콘 목록들 -->
+<div class="container">
+    <div class="row">
+        {% if ad_main == False %}
+        <div>아직 상품이 없습니다룽</div>
+        {% else %}
+        {% for gifty in gifty_list %}
+        <div class="col-3">
+            <a href="/clicktech/exchange/detail/{{gifty._id}}" class="justify-content-center">
+                <div class="card col-3 justify-content-center" style="width: 100%;">
+                    <img src={{gifty.gifty_image}} class="card-img-top text-center" alt="기프티콘 이미지입니다.">
+                    <div class="card-body">
                         <p class="card-text fw-bold">{{gifty.gifty_brand}}</p>
                         <p class="card-text">{{gifty.gifty_name}}</p>
                         <p class="card-text">{{gifty.gifty_price}}</p>
@@ -117,12 +119,12 @@
                 </div>
             </a>
             <p class="chips">
-                <span class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">{{gifty.gifty_style}}</span>
+                <span
+                    class="chip join badge bg-primary-subtle text-primary-emphasis rounded-pill">{{gifty.gifty_style}}</span>
             </p>
+            {% endfor %}
+            {% endif %}
         </div>
-        {% endfor %}
-        
-
     </div>
 </div>
 
