@@ -3,7 +3,7 @@ from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from databases.connections import Database
-from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_alllist, Ad_main, Ad_create
+from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_main, Ad_create
 from typing import Optional
 from routes.paginations import Paginations
 from databases.mongo_connect import User_info
@@ -104,8 +104,7 @@ collection_gifty = Database(Gifty_info)
 @router.get("/exchange") # 펑션 호출 방식
 async def exchange(request:Request):
     gifty_list = await collection_gifty.get_all()
-    return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request,
-                                                                                   "gifty_list" : gifty_list})
+    return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request, "gifty_list" : gifty_list})
 
 @router.get("/exchange/{gifty_style}") # 펑션 호출 방식
 async def exchange(request:Request, gifty_style):
@@ -147,15 +146,21 @@ async def order(request : Request, object_id : PydanticObjectId ) :
 # 쿠폰교환페이지에서 쿠폰구매를 눌렀을 때(로그인이 되지 않았을 경우 로그인 페이지로 이동) : 주소 /
 
 
+from databases.mongo_connect import Notice
+collection_notice = Database(Notice)
+# notice_title, main_text, date
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
-@router.get("/notice") # 펑션 호출 방식
+@router.get("/notice/{page_number}") # 펑션 호출 방식
 async def notice(request:Request):
-    return templates.TemplateResponse(name="notice/notice_main.html", context={'request':request})
+    notice_list = await collection_notice.get_all()
+    return templates.TemplateResponse(name="notice/notice_main.html", context={'request':request, 'notice_list' : notice_list})
 
-# 공지사항의 글 하나를 클릭했을 때 : 주소 /clicktech/notice/detail
-@router.get("/notice/detail") # 펑션 호출 방식
-async def notice(request:Request):
-    return templates.TemplateResponse(name="notice/notice_detail.html", context={'request':request})
+# 공지사항의 글 하나를 클릭했을 때 : 주소 /clicktech/notice/{id}
+@router.get("/notice/{page_number}/{object_id}") # 펑션 호출 방식
+async def notice(request:Request, object_id : PydanticObjectId):
+    notice = await collection_notice.get(object_id)
+    return templates.TemplateResponse(name="notice/notice_detail.html", context={'request':request, 'notice' : notice})
+
 from databases.mongo_connect import Faq
 from typing import Optional
 # # FAQ 클릭했을 때 : 주소 /clicktech/faq
