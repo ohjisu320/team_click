@@ -3,7 +3,7 @@ from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from databases.connections import Database
-from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_alllist, Ad_main, Ad_create
+from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_main, Ad_create
 from typing import Optional
 
 router = APIRouter()

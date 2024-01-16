@@ -5,7 +5,7 @@ from fastapi import Request
 from databases.connections import Database
 from typing import Optional
 from routes.paginations import Paginations
-from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_alllist, Ad_main, Ad_create
+from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_main, Ad_create
 
 collection_ad_create = Database(Ad_create)
 
@@ -81,6 +81,15 @@ async def ad(request:Request):
 @router.get("/faq") # 펑션 호출 방식
 async def createfaq(request:Request):
     return templates.TemplateResponse(name="manager/faq_create.html", context={'request':request})
+
+# FAQ 생성/관리에서 생성 클릭했을 때 : 주소 /manager/faq/submit
+@router.post("/faq/submit") # 펑션 호출 방식
+async def createfaq(request:Request):
+    dict_faq = dict(await request.form())
+    faq = Faq(**dict_faq)
+    await collection_ad_create.save(faq)
+
+    return templates.TemplateResponse(name="manager/faq_create_submit.html", context={'request':request})
 
 # 공지사항 생성/관리 클릭했을 때 : 주소 /manager/notice
 @router.get("/notice") # 펑션 호출 방식
