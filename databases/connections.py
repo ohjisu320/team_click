@@ -4,6 +4,7 @@ from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_main,
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic_settings import BaseSettings
 from routes.paginations import Paginations
+from beanie import PydanticObjectId
 
 
 class Settings(BaseSettings):
@@ -57,5 +58,13 @@ class Database:
         if documents:
             return documents, pagination
         return False 
+    
+    # 삭제
+    async def delete_one(self, id: PydanticObjectId) -> bool:
+        doc = await self.model.get(id)
+        if doc:
+            await doc.delete()
+            return True
+        return False
 
 
