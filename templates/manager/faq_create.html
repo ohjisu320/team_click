@@ -6,6 +6,36 @@
 
 
 {% block main %}
+<form action="/" >
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <select name="category" id="category" required>
+                        <option value="">FAQ 타입 택1</option>
+                        <option value="서비스안내">서비스안내</option>
+                        <option value="결제">결제</option>
+                        <option value="서비스이용">서비스이용</option>
+                    </select>
+                </td>
+                
+            </tr>
+            <tr>
+                <td>자주 묻는 질문 제목 : </td>
+                <td><input type="text" name="question_title" id="" required></td>
+            </tr>
+            <tr>
+                <td>자주 묻는 질문 답변 : </td>
+                <td><input type="text" name="answer_main_text" id="" required></td>
+            </tr>
+            <tr>
+                <td><button type="submit">올리기</button></td>
 
-FAQ 관리/생성 페이지입니다.
+            </tr>
+        </tbody>
+        
+    </table>
+</form>
+
+
 {% endblock main%}

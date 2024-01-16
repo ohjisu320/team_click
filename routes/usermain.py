@@ -3,11 +3,9 @@ from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from databases.connections import Database
-from models.user_info import User_info
-from models.faq import Faq
+from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_alllist, Ad_main, Ad_create
 from typing import Optional
 
->>>>>>> e44224792795782700a503ab2364cc47438ceef2
 router = APIRouter()
 app = FastAPI()
 collection_user = Database(User_info)
@@ -160,19 +158,7 @@ async def notice(request:Request):
 from typing import Optional
 # # FAQ 클릭했을 때 : 주소 /clicktech/faq
 collection_faq = Database(Faq)
-<<<<<<< HEAD
-@router.get("/faq") # 펑션 호출 방식
-async def faq(request:Request,page_number: Optional[int] = 1):
-    await request.form()
-    list_faq = await collection_faq.get_all()
-    total = len(list_faq)
-    pagination = Paginations(total,page_number)
-    conditions = { }
-    list_faq_pagination, pagination = await collection_faq.getsbyconditionswithpagination(page_number,conditions)
-    return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
-                                                                         'list_faq' : list_faq_pagination,
-                                                                         'pagination': pagination })
-=======
+
 # @router.get("/faq") # 펑션 호출 방식
 # async def faq(request:Request):
 #     list_faq = await collection_faq.get_all()
@@ -198,7 +184,7 @@ async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
                                       , context={'request':request,
                                                  'list_faq' : list_faq,
                                                 'pagination': pagination })
->>>>>>> e44224792795782700a503ab2364cc47438ceef2
+
 
 @router.get("/faq/{categories}") # 펑션 호출 방식
 async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
