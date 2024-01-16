@@ -38,15 +38,15 @@ for style_list in list_element[1:] :
             break
         else : 
             previous_scrollHeight = current_scrollHeight
-        time.sleep(1)
-        pass
+            time.sleep(2)
+            pass
     
     # 아이템 선택해서 저장하기
 
     gifty_list = browser.find_elements(by=By.CSS_SELECTOR, value="#goodsSection >li ")
     for gifty in gifty_list :
         gifty.find_element(by=By.CSS_SELECTOR, value="#goodsSection > li > a").click()
-        time.sleep(1)
+        browser.implicitly_wait(5)
         # 데이터 뽑아오기
         gifty_image =  browser.find_element(by=By.CSS_SELECTOR, value="#renewal > div.itemDetail.comp > div > div.imgWrap > img").get_attribute('src') #이미지
         gifty_brand = browser.find_element(by=By.CSS_SELECTOR, value="div.txtWrap-min > a > div > span").text #브랜드
@@ -63,7 +63,8 @@ for style_list in list_element[1:] :
         coll.insert_one({'gifty_style' : gifty_style, 'gifty_image' : gifty_image, 'gifty_brand' : gifty_brand, 'gifty_name' : gifty_name, 'gifty_price' : gifty_price,'gifty_detail' : gifty_detail, 'gifty_cautioin' : gifty_caution})
 
         browser.back()
-        time.sleep(1)
+        browser.implicitly_wait(5)
+        pass
 
 
 

@@ -94,6 +94,29 @@ async def exchange(request:Request):
     return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request,
                                                                                    "gifty_list" : gifty_list})
 
+@router.get("/exchange/{gifty_style}") # 펑션 호출 방식
+async def exchange(request:Request, gifty_style):
+    if gifty_style =="cafe" : gifty_style =="카페"
+    if gifty_style =="bake" : gifty_style =="베이커리/도넛/떡"
+    if gifty_style =="mart" : gifty_style =="백화점/마트"
+    if gifty_style =="icecream" : gifty_style =="아이스크림"
+    if gifty_style =="convin" : gifty_style =="편의점"
+    if gifty_style =="burger" : gifty_style =="버거/피자"
+    if gifty_style =="chicken" : gifty_style =="치킨"
+    if gifty_style =="korean" : gifty_style =="한식/중식/분식"
+    if gifty_style =="jokbal" : gifty_style =="구이/족발"
+    if gifty_style =="restaurant" : gifty_style =="레스토랑/뷔페"
+    if gifty_style =="fusion" : gifty_style =="외국/퓨전/기타"
+    if gifty_style =="movie" : gifty_style =="영화/음악/도서"
+    if gifty_style =="commu" : gifty_style =="kt/통신"
+    if gifty_style =="beauty" : gifty_style =="뷰티/헤어/바디"
+    if gifty_style =="health" : gifty_style =="건강/리빙/식품관"
+    if gifty_style =="enter" : gifty_style =="생활/가전/엔터"
+    condition = {'gifty_style':{'$regex':gifty_style}}
+    gifty_list = await collection_gifty.getsbyconditions(condition)
+    return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request,
+                                                                                   "gifty_list" : gifty_list})
+
 # 쿠폰교환페이지에서 쿠폰 하나를 클릭했을 때 : 주소 /clicktech/exchange/detail
 @router.post("/exchange/detail/{object_id}") # 펑션 호출 방식
 async def exchange(request:Request, object_id):
