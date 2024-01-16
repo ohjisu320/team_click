@@ -12,7 +12,6 @@ from pydantic_settings import BaseSettings
 from routes.paginations import Paginations
 
 
-
 class Settings(BaseSettings):
     DATABASE_URL: Optional[str] = None
 

@@ -5,6 +5,7 @@ from fastapi import Request
 from databases.connections import Database
 from models.user_info import User_info
 from models.faq import Faq
+
 router = APIRouter()
 app = FastAPI()
 collection_user = Database(User_info)
@@ -101,10 +102,36 @@ async def exchange(request:Request):
     return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request,
                                                                                    "gifty_list" : gifty_list})
 
+@router.get("/exchange/{gifty_style}") # 펑션 호출 방식
+async def exchange(request:Request, gifty_style):
+    if gifty_style =="cafe" : gifty_style ="카페"
+    if gifty_style =="bake" : gifty_style ="베이커리/도넛/떡"
+    if gifty_style =="mart" : gifty_style ="백화점/마트"
+    if gifty_style =="icecream" : gifty_style ="아이스크림"
+    if gifty_style =="convin" : gifty_style ="편의점"
+    if gifty_style =="burger" : gifty_style ="버거/피자"
+    if gifty_style =="chicken" : gifty_style ="치킨"
+    if gifty_style =="korean" : gifty_style ="한식/중식/분식"
+    if gifty_style =="jokbal" : gifty_style ="구이/족발"
+    if gifty_style =="restaurant" : gifty_style ="레스토랑/뷔페"
+    if gifty_style =="fusion" : gifty_style ="외국/퓨전/기타"
+    if gifty_style =="movie" : gifty_style ="영화/음악/도서"
+    if gifty_style =="commu" : gifty_style ="kt/통신"
+    if gifty_style =="beauty" : gifty_style ="뷰티/헤어/바디"
+    if gifty_style =="health" : gifty_style ="건강/리빙/식품관"
+    if gifty_style =="enter" : gifty_style ="생활/가전/엔터"
+    condition = {'gifty_style':{'$regex':gifty_style}}
+    gifty_list = await collection_gifty.getsbyconditions(condition)
+    return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request,
+                                                                                   "gifty_list" : gifty_list})
+
 # 쿠폰교환페이지에서 쿠폰 하나를 클릭했을 때 : 주소 /clicktech/exchange/detail
-@router.post("/exchange/detail/{object_id}") # 펑션 호출 방식
+@router.get("/exchange/detail/{object_id}") # 펑션 호출 방식
 async def exchange(request:Request, object_id):
-    return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request})
+    condition = {'_id' : {'$regex' : object_id} }
+    gifty_list = await collection_gifty.getsbyconditions(condition)
+    return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request
+                                                                                     "gifty_list": gifty_list})
 
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
 @router.get("/notice") # 펑션 호출 방식
@@ -128,15 +155,17 @@ async def faq(request:Request):
 
 
 
-database_faq = Database(Faq)
+collection_faq = Database(Faq)
 from typing import Optional
 @router.get("/faq")
-@router.get("/faq/{page_number}")
+# @router.get("/faq/{page_number}")
 async def faq_list(request:Request, page_number: Optional[int] = 1):
     list_faq = dict(request._query_params)
     print(list_faq)
+    conditions = { }
     # db.answers.find({'name':{ '$regex': '김' }})
     # { 'name': { '$regex': user_dict.word } }
+<<<<<<< HEAD
     conditions = { }
     try :
         search_word = list_faq["word"]
@@ -146,8 +175,11 @@ async def faq_list(request:Request, page_number: Optional[int] = 1):
         conditions = {'categories' : { '$regex': list_faq["word"] }}
     
     list_faq, pagination = await database_faq.getsbyconditionswithpagination(conditions
+=======
+    list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
+>>>>>>> c879b25ee2c1b99fd0e9e981030926c62469df7d
                                                                      ,page_number)
     return templates.TemplateResponse(name="faq/faq_main.html"
                                       , context={'request':request
-                                                 , 'faqs' : list_faq
-                                                  ,'pagination' : pagination })
+                                                 , 'faqs' : list_faq,
+                                                'pagination': pagination })
