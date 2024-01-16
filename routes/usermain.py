@@ -14,6 +14,7 @@ templates = Jinja2Templates(directory="templates/")
 from databases.connections import Database
 from models.ad_main import Ad_main
 collection_ad_main = Database(Ad_main)
+
 # 로고 클릭했을 때 : 주소 /clicktech/
 @router.get("/") # 펑션 호출 방식
 async def usermain(request:Request):
@@ -125,11 +126,11 @@ async def exchange(request:Request, gifty_style):
     return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request,
                                                                                    "gifty_list" : gifty_list})
 
+from beanie import PydanticObjectId
 # 쿠폰교환페이지에서 쿠폰 하나를 클릭했을 때 : 주소 /clicktech/exchange/detail
 @router.get("/exchange/detail/{object_id}") # 펑션 호출 방식
-async def exchange(request:Request, object_id):
-    condition = {'_id' : {'$regex' : object_id}}
-    gifty = await collection_gifty.getsbyconditions(condition)
+async def exchange(request:Request, object_id : PydanticObjectId):
+    gifty = await collection_gifty.get(object_id)
     return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request,
                                                                                      "gifty": gifty})
 

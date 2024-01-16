@@ -6,36 +6,46 @@
 {% block main %}
 
 <div class="container">
-   <div class="inner">
-        <div class="imgWrap">
-            <img src="{{gifty.gifty_image}}" alt="{{gifty.gifty_name}}">
-        </div>
-        <div class="txtWrap">
-            <!-- 쿠폰 내용 -->
-            <div class="txtWrap-min">
-                <div>{{gifty.gifty_brand}}</div>
-                <div>{{gifty.gifty_name}}</div>
-                <div>{{gifty.gifty_price}}</div>
+    <div class="container-fluid">
+        <!-- 제품 내용 간략 -->
+        <div class="container row">
+            <div class="col-6">
+                <img src="{{gifty.gifty_image}}" alt="{{gifty.gifty_name}}">
             </div>
-            <div class="btnSet">
-                <div>공유</div>
-                <div>❤</div>
-                <div class="button">구매하기</div> <!-- 버튼 활성화 필요-->
+            <div class="col-6">
+                <!-- 쿠폰 내용 -->
+                <div class="">
+                    <div>{{gifty.gifty_brand}}</div>
+                    <h3>{{gifty.gifty_name}}</h3>
+                    <h2>{{gifty.gifty_price}}</h2>
+                </div>
+                <!-- 버튼들 / 활성화 필요 -->
+                <div class="container row">
+                    <div class="button col-2">공유</div>
+                    <div class="button col-2">❤</div>
+                    <div class="button col-8">구매하기</div> 
+                </div>
             </div>
         </div>
-        <div class="tab-wrap">
-            <div class="tab current">상품상세</div>
-            <div type="button" class="tab">주의사항</div>
-        </div>
-        <div class="cont-wrap">
+
+        <!-- 제품 내용 상세보기 -->
+        <div class="container">
+            <h3>상품 상세</h3>
             <div class="cont">
                 <div>{{ gifty.gifty_detail }}</div>
             </div>
+            <h3>주의사항</h3>
             <div class="cont current">
-                <div>{{gifty.gifty_caution}}</div>
+                <div>{{ gifty.gifty_caution }}</div>
+            </div>
+            <h3>이용안내</h3>
+            <div class="cont">
+                <div>
+                    <img src="../../resources/img/how_to_use_coupon.jpg" alt="이용안내 이미지입니다.">
+                </div>
             </div>
         </div>
-   </div> 
+    </div>
 </div>
 
 
