@@ -32,12 +32,24 @@ async def point(request:Request):
 async def ad(request:Request):
     return templates.TemplateResponse(name="manager/ad_manage.html", context={'request':request})
 
+
 # 광고 리스트 클릭했을 때 : 주소 /manager/adlist
 @router.get("/adlist") # 펑션 호출 방식
 async def ad(request:Request):
-    ad_list = await collection_ad_create.get_all()
+    try : 
+        user_dict = dict(request._query_params)
+        if user_dict['word'] == "앱 설치" : user_dict['key'] ="download_app"
+        elif  user_dict['word'] == "회원가입" :user_dict['key'] ="join" 
+        elif user_dict['word'] == "뉴스레터 구독": user_dict['key'] ="newsletter"    
+        elif user_dict['word'] =="사이트 접속": user_dict['key'] = "enter" 
+        elif user_dict['word'] == "구매" : user_dict['key'] ="purchase"
+        conditions = { user_dict['key'] : { '$regex': user_dict["word"] } }
+        ad_list = await collection_ad_create.getsbyconditions(conditions)
+    except :
+        ad_list = await collection_ad_create.get_all()
     return templates.TemplateResponse(name="manager/ad_list.html", context={'request':request,
                                                                             'ad_list':ad_list})
+
 
 
 

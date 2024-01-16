@@ -73,9 +73,16 @@ async def user_input_post(request:Request):
 from models.ad_create import Ad_create
 collection_ad_create = Database(Ad_create)
 # 전체리스트 클릭했을 때 : 주소 /clicktech/alllist
-@router.get("/alllist") # 펑션 호출 방식
+@router.get("/alllist/") # 펑션 호출 방식
 async def allad(request:Request):
     ad_list = await collection_ad_create.get_all()
+    return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request,
+                                                                            "ad_list":ad_list})
+
+@router.get("/alllist/{type}") # 펑션 호출 방식
+async def allad(request:Request, type):
+    conditions = {'type': { '$regex': type }}
+    ad_list = await collection_ad_create.getsbyconditions(conditions)
     return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request,
                                                                             "ad_list":ad_list})
 
@@ -144,31 +151,35 @@ async def notice(request:Request):
 async def notice(request:Request):
     return templates.TemplateResponse(name="notice/notice_detail.html", context={'request':request})
 
-# FAQ 클릭했을 때 : 주소 /clicktech/faq
-@router.get("/faq") # 펑션 호출 방식
-async def faq(request:Request):
-    return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request})
-
-# FAQ의 글 하나를 클릭했을 때 : 주소 /clicktech/faq
-@router.get("/faq/detail") # 펑션 호출 방식
-async def faq(request:Request):
-    return templates.TemplateResponse(name="faq/faq_detail.html", context={'request':request})
-
-
-
+# # FAQ 클릭했을 때 : 주소 /clicktech/faq
 collection_faq = Database(Faq)
+# @router.get("/faq") # 펑션 호출 방식
+# async def faq(request:Request):
+#     list_faq = await collection_faq.get_all()
+#     return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
+#                                                                          'list_faq' : list_faq})
+
 from typing import Optional
+@router.get("/faq/{categories}")
 @router.get("/faq")
-# @router.get("/faq/{page_number}")
-async def faq_list(request:Request, page_number: Optional[int] = 1):
-    list_faq = dict(request._query_params)
+async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
+    # await request.form()
+    list_faq = await collection_faq.get_all()
+    
     print(list_faq)
     conditions = { }
+    try :
+        search_word = list_faq["categories"]
+    except:
+        search_word = None
+    if search_word:     # 검색어 작성
+        conditions = {'categories' : { '$regex': categories }}
     # db.answers.find({'name':{ '$regex': '김' }})
     # { 'name': { '$regex': user_dict.word } }
     list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
                                                                      ,page_number)
     return templates.TemplateResponse(name="faq/faq_main.html"
-                                      , context={'request':request
-                                                 , 'faqs' : list_faq,
+                                      , context={'request':request,
+                                                 'list_faq' : list_faq,
                                                 'pagination': pagination })
+

@@ -52,6 +52,20 @@ async def root(request:Request):
 async def root(request:Request):
     return templates.TemplateResponse("biz/contactus.html",{'request':request})
 
+
+
+
+
 # @app.get("/manager")
 # async def root(request:Request):
 #     return templates.TemplateResponse("managermain.html",{'request':request})
+
+
+# @app.get("/manager")
+# async def root(request:Request):
+#     return templates.TemplateResponse("managermain.html",{'request':request})
+
+# @app.get("/manager")
+# async def root(request:Request):
+#     return templates.TemplateResponse("managermain.html",{'request':request})
+
