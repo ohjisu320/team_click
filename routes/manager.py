@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
-from models.ad_create import Ad_create
+from databases.mongo_connect import Ad_create
 from databases.connections import Database
 from typing import Optional
 from routes.paginations import Paginations
