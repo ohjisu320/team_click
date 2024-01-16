@@ -6,6 +6,7 @@ from databases.connections import Database
 from databases.mongo_connect import User_info
 from databases.mongo_connect import Faq
 
+
 router = APIRouter()
 app = FastAPI()
 collection_user = Database(User_info)
@@ -83,7 +84,7 @@ async def allad(request:Request):
 @router.get("/alllist/{type}") # 펑션 호출 방식
 async def allad(request:Request, type):
     conditions = {'type': { '$regex': type }}
-    ad_list = await collection_ad_create.getsbyconditions(conditions)
+    ad_list= await collection_ad_create.getsbyconditions(conditions)
     return templates.TemplateResponse(name="offerwall/allad.html", context={'request':request,
                                                                             "ad_list":ad_list})
 
@@ -163,24 +164,20 @@ collection_faq = Database(Faq)
 #     return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
 #                                                                          'list_faq' : list_faq})
 
-from typing import Optional
-@router.get("/faq/{categories}")
+
 @router.get("/faq")
+# @router.get("/faq/{categories}")
 async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
-    # await request.form()
-    list_faq = await collection_faq.get_all()
-    
-    print(list_faq)
+    faq_dict = dict(await request.form())
+    print(faq_dict)
     conditions = { }
     try :
-        search_word = list_faq["categories"]
+        conditions = { }
+        list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
+                                                                     ,page_number)
     except:
-        search_word = None
-    if search_word:     # 검색어 작성
         conditions = {'categories' : { '$regex': categories }}
-    # db.answers.find({'name':{ '$regex': '김' }})
-    # { 'name': { '$regex': user_dict.word } }
-    list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
+        list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
                                                                      ,page_number)
     return templates.TemplateResponse(name="faq/faq_main.html"
                                       , context={'request':request,
