@@ -7,5 +7,9 @@
 
 {% block main %}
 
-공지사항 관리/생성 페이지입니다.
+<form action="/manager/ad" method="get">
+    <button type="submit" formaction="/manager/ad" >create more</button>
+    <button type="submit" formaction="/manager/adlist">list</button>
+</form>
+
 {% endblock main%}

@@ -65,8 +65,6 @@ async def ad(request:Request, page_number: Optional[int] = 1):
                                                                             'pagination':pagination})
 
 
-
-
 # 광고 생성 클릭했을 때 : 주소 /manager/ad
 @router.post("/ad/submit") # 펑션 호출 방식
 async def ad(request:Request):
@@ -82,10 +80,10 @@ async def ad(request:Request):
 async def createfaq(request:Request):
     return templates.TemplateResponse(name="manager/faq_create.html", context={'request':request})
 
-# 공지사항 생성/관리 클릭했을 때 : 주소 /manager/notice
-@router.get("/notice") # 펑션 호출 방식
+# 공지사항 생성/관리 클릭했을 때 : 주소 /manager/noticelist
+@router.get("/noticelist") # 펑션 호출 방식
 async def createnotice(request:Request):
-    return templates.TemplateResponse(name="manager/notice_create.html", context={'request':request})
+    return templates.TemplateResponse(name="manager/notice_list.html", context={'request':request})
 
 
 # 관리자 관리 클릭했을 때 : 주소 /manager/manager

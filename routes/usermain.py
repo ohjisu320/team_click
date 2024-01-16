@@ -126,27 +126,25 @@ async def exchange(request:Request, gifty_style):
     if gifty_style =="enter" : gifty_style ="생활/가전/엔터"
     condition = {'gifty_style':{'$regex':gifty_style}}
     gifty_list = await collection_gifty.getsbyconditions(condition)
-    return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request,
-                                                                                   "gifty_list" : gifty_list})
+    return templates.TemplateResponse(name="exchange/gifticon_main.html", context={'request':request,"gifty_list" : gifty_list})
 
 from beanie import PydanticObjectId
 # 쿠폰교환페이지에서 쿠폰 하나를 클릭했을 때 : 주소 /clicktech/exchange/detail
 @router.get("/exchange/detail/{object_id}") # 펑션 호출 방식
 async def exchange(request:Request, object_id : PydanticObjectId):
     gifty = await collection_gifty.get(object_id)
-    return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request,
-                                                                                     "gifty": gifty})
+    return templates.TemplateResponse(name="exchange/gifticon_detail.html", context={'request':request, "gifty": gifty})
 
 # 쿠폰교환페이지에서 쿠폰구매를 눌렀을 때 : 주소 /
 @router.get("/exchange/order/{object_id}")  # 구매하는 사용자의 ID 필요
 async def order(request : Request, object_id : PydanticObjectId ) :
     # collection_user.get_all 엥 근데 이거 나중에 해야할듯....? 그럼 모든 페이지에 사용자의 ID가 있어야 함
     gifty = await collection_gifty.get(object_id)
-    return templates.TemplateResponse(name="exchange/gifticon_order", context= {'request':request,
-                                                                                     "gifty":gifty})
+    return templates.TemplateResponse(name="exchange/gifticon_order.html", context= {'request':request, "gifty":gifty})
 
 
 # 쿠폰교환페이지에서 쿠폰구매를 눌렀을 때(로그인이 되지 않았을 경우 로그인 페이지로 이동) : 주소 /
+
 
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
 @router.get("/notice") # 펑션 호출 방식
