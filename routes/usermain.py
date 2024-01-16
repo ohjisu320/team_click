@@ -3,11 +3,10 @@ from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from databases.connections import Database
-from models.user_info import User_info
-from models.faq import Faq
 from typing import Optional
+from routes.paginations import Paginations
+from databases.mongo_connect import User_info
 
->>>>>>> e44224792795782700a503ab2364cc47438ceef2
 router = APIRouter()
 app = FastAPI()
 collection_user = Database(User_info)
@@ -156,11 +155,10 @@ async def notice(request:Request):
 @router.get("/notice/detail") # 펑션 호출 방식
 async def notice(request:Request):
     return templates.TemplateResponse(name="notice/notice_detail.html", context={'request':request})
-
+from databases.mongo_connect import Faq
 from typing import Optional
 # # FAQ 클릭했을 때 : 주소 /clicktech/faq
 collection_faq = Database(Faq)
-<<<<<<< HEAD
 @router.get("/faq") # 펑션 호출 방식
 async def faq(request:Request,page_number: Optional[int] = 1):
     await request.form()
@@ -172,45 +170,17 @@ async def faq(request:Request,page_number: Optional[int] = 1):
     return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
                                                                          'list_faq' : list_faq_pagination,
                                                                          'pagination': pagination })
-=======
-# @router.get("/faq") # 펑션 호출 방식
-# async def faq(request:Request):
-#     list_faq = await collection_faq.get_all()
-#     return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
-#                                                                          'list_faq' : list_faq})
-
-
-@router.get("/faq")
-# @router.get("/faq/{categories}")
-async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
-    faq_dict = dict(await request.form())
-    print(faq_dict)
-    conditions = { }
-    try :
-        conditions = { }
-        list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
-                                                                     ,page_number)
-    except:
-        conditions = {'categories' : { '$regex': categories }}
-        list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
-                                                                     ,page_number)
-    return templates.TemplateResponse(name="faq/faq_main.html"
-                                      , context={'request':request,
-                                                 'list_faq' : list_faq,
-                                                'pagination': pagination })
->>>>>>> e44224792795782700a503ab2364cc47438ceef2
 
 @router.get("/faq/{categories}") # 펑션 호출 방식
 async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
-    await request.form()
-    cate_list_faq = await collection_faq.get(categories)
+    conditions = {'categories': { '$regex': categories }}
+    cate_list_faq = await collection_faq.getsbyconditions(conditions)
     total = len(cate_list_faq)
     pagination = Paginations(total,page_number)
-    conditions = { }
     list_faq_pagination,pagination = await collection_faq.getsbyconditionswithpagination(conditions,page_number)
     return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
-                                                                            'list_faq' : list_faq_pagination,
-                                                                          'pagination': pagination })
+                                                                        'list_faq' : list_faq_pagination,
+                                                                        'pagination': pagination })
 
 # @router.get("/faq/{categories}")
 # @router.get("/faq")
