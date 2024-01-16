@@ -1,12 +1,6 @@
 from typing import Any, List, Optional
 from beanie import init_beanie, PydanticObjectId
-from databases.mongo_connect import User_info
-from databases.mongo_connect import Gifty_info
-from databases.mongo_connect import Notice
-from databases.mongo_connect import Faq
-from databases.mongo_connect import Ad_alllist
-from databases.mongo_connect import Ad_main
-from databases.mongo_connect import Ad_create
+from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_alllist, Ad_main, Ad_create
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic_settings import BaseSettings
 from routes.paginations import Paginations

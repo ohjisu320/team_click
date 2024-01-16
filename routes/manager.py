@@ -2,10 +2,11 @@ from fastapi import APIRouter
 from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
-from databases.mongo_connect import Ad_create
 from databases.connections import Database
 from typing import Optional
 from routes.paginations import Paginations
+from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_alllist, Ad_main, Ad_create
+
 collection_ad_create = Database(Ad_create)
 
 
