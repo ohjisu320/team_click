@@ -76,6 +76,17 @@ async def ad(request:Request):
     return templates.TemplateResponse(name="manager/ad_create.html", context={'request':request})
 
 
+# FAQ 생성/관리 클릭했을 때 : 주소 /manager/faq
+@router.get("/faq") # 펑션 호출 방식
+async def createfaq(request:Request):
+    return templates.TemplateResponse(name="manager/faq_create.html", context={'request':request})
+
+# 공지사항 생성/관리 클릭했을 때 : 주소 /manager/notice
+@router.get("/notice") # 펑션 호출 방식
+async def createnotice(request:Request):
+    return templates.TemplateResponse(name="manager/notice_create.html", context={'request':request})
+
+
 # 관리자 관리 클릭했을 때 : 주소 /manager/manager
 @router.get("/manager") # 펑션 호출 방식
 async def manager(request:Request):
