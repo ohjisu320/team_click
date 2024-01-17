@@ -1,0 +1,29 @@
+{% extends "managermain_template.html"%}
+
+{% block title%}
+아이디 찾기 : Click-Tech
+{% endblock title%}
+
+{% block main %}
+<table class="outline">
+    <tr>
+        <td>
+            <h3>로그인</h3>
+            <div>
+                <table class="inline">
+                    <tr>
+                        <td>
+                            <form action="/clicktech" method="get">
+                                <div>아이디를 찾을건데요?</div>
+                                <input type="text" placeholder="아이디(E-mail)을 입력해 주세요.">
+                         
+
+                                <button type="submit" class="login">로그인</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+</table>
+{% endblock main %}
