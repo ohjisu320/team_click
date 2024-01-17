@@ -9,7 +9,7 @@ Click-Tech
 
 <div class="container row">
     <div>FAQ 리스트 보기</div>
-    <form action="">
+    <form class="col-12">
         <div><button type="submit" formaction="/manager/faq/create" formmethod="post">FAQ생성</button></div>
 
         <div class="text-end">
@@ -26,7 +26,7 @@ Click-Tech
         {% if list_faq == False %}
         <div>아직 FAQ가 없슴둥</div>
         {% else %}
-        <form action="">
+        <form class="col-12" action="">
             <table class="table table-hover table-borderless">
                 <thead class="text-center">
                     <tr>
@@ -39,7 +39,7 @@ Click-Tech
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="text-center">
                     {% for faq in list_faq %}
                     <tr>
                         <td> {{pagination.start_record_number + loop.index}}</td>

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from starlette.responses import HTMLResponse
+from starlette.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from databasess.connections import Database
@@ -236,8 +236,6 @@ async def get_user_account(request:Request, page_number: Optional[int] = 1):
     user_dict = dict(await request.form())
     user_list = await collection_user.get_all()
     conditions = { }
-    # total = len(ad_list)
-    # pagination = Paginations(total,page_number)
     try :
         user_dict = dict(request._query_params)
         conditions = { user_dict['key'] : { '$regex': user_dict["word"] } }
@@ -248,8 +246,7 @@ async def get_user_account(request:Request, page_number: Optional[int] = 1):
                                                                             'user_list':user_list,
                                                                             'pagination':pagination,
                                                                              "user_dict":user_dict})
-
-@router.post("/user_account")
-async def delete_account(request: Request, object_id:PydanticObjectId):
+@router.get("/user_account/delete/{object_id}")
+async def delete_user_account(request: Request, object_id:PydanticObjectId):
     await collection_user.delete_one(object_id)
-    return templates.TemplateResponse(name="manager/useraccount.html", context={'request':request})
+    return templates.TemplateResponse(name="manager/useraccount_delete.html", context={'request':request})

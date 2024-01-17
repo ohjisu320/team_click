@@ -10,7 +10,7 @@ Click-Tech
 
 <div class="container row">
     <div>회원 정보 보기</div>
-    <form class="">
+    <form class="col-12">
         <div class="text-div.end">
 
             <select name="key" id="" value="{{user_dict.key}}">
@@ -45,7 +45,7 @@ Click-Tech
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="text-center"sss>
                 {% for user in user_list %}
                 <tr>
                     <td> {{ loop.index }}</td>
@@ -60,7 +60,7 @@ Click-Tech
                     <td><input type="checkbox" name="user_terms3" {{ 'checked' if user.user_terms3=='on' else '' }} disabled></td>
                     <td><input type="checkbox" name="user_terms4" {{ 'checked' if user.user_terms4=='on' else '' }} disabled></td>
                     <td><button type="submit">수정</button></td>
-                    <td><button type="submit" formaction="/manager/user_account" formmethod="post">삭제</button></td>
+                    <td><button type="submit" formaction="/manager/user_account/delete/{{user.id}}" formmethod="get">삭제</button></td>
                 </tr>
                 {% endfor %}
             </tbody>
