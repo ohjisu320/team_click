@@ -165,48 +165,17 @@ from databases.mongo_connect import Faq
 from typing import Optional
 # # FAQ 클릭했을 때 : 주소 /clicktech/faq
 collection_faq = Database(Faq)
-@router.get("/faq") # 펑션 호출 방식
-# async def faq(request:Request,page_number: Optional[int] = 1):
-#     await request.form()
-#     list_faq = await collection_faq.get_all()
-#     total = len(list_faq)
-#     pagination = Paginations(total,page_number)
-#     conditions = { }
-#     list_faq_pagination, pagination = await collection_faq.getsbyconditionswithpagination(page_number,conditions)
-#     return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
-#                                                                          'list_faq' : list_faq_pagination,
-#                                                                          'pagination': pagination })
+@router.get("/faq/{page_number}")
+@router.get("/faq")
+async def faq_list(request:Request, page_number: Optional[int] = 1):
+    await request.form()
+    list_faq = await collection_faq.get_all()
+    print(list_faq)
+    conditions = { }
+    list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
+                                                                     ,page_number)
+    return templates.TemplateResponse(name="faq/faq_main.html"
+                                      , context={'request':request,
+                                                 'list_faq' : list_faq,
+                                                'pagination': pagination })
 
-# @router.get("/faq/{categories}") # 펑션 호출 방식
-# async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
-#     conditions = {'categories': { '$regex': categories }}
-#     cate_list_faq = await collection_faq.getsbyconditions(conditions)
-#     total = len(cate_list_faq)
-#     pagination = Paginations(total,page_number)
-#     list_faq_pagination,pagination = await collection_faq.getsbyconditionswithpagination(conditions,page_number)
-#     return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
-#                                                                         'list_faq' : list_faq_pagination,
-#                                                                         'pagination': pagination })
-
-# @router.get("/faq/{categories}")
-# @router.get("/faq")
-# async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
-#     # await request.form()
-#     list_faq = await collection_faq.get_all()
-    
-#     print(list_faq)
-#     conditions = { }
-#     # try :
-#     #     search_word = list_faq["categories"]
-#     # except:
-#     #     search_word = None
-#     # if search_word:     # 검색어 작성
-#     #     conditions = {'categories' : { '$regex': categories }}
-#     # db.answers.find({'name':{ '$regex': '김' }})
-#     # { 'name': { '$regex': user_dict.word } }
-#     list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
-#                                                                      ,page_number)
-#     return templates.TemplateResponse(name="faq/faq_main.html"
-#                                       , context={'request':request,
-#                                                  'list_faq' : list_faq,
-#                                                 'pagination': pagination })
