@@ -62,7 +62,7 @@ Click-Tech
                     <td>{{ ad.contents }}</td>
                     <td>{{ ad.detail_contents }}</td>
                     <td>{{ ad.point }}</td>
-                    <td><button type="submit">삭제</button></td>
+                    <td><button formaction="/manager/ad/delete/{{ad.id}}" type="submit">삭제</button></td>
                     <td><button type="submit">메인</button></td>
                 </tr>
                 {% endfor %}
