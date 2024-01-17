@@ -150,10 +150,13 @@ from databases.mongo_connect import Notice
 collection_notice = Database(Notice)
 # notice_title, main_text, date
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
-@router.get("/notice/{page_number}") # 펑션 호출 방식
-async def notice(request:Request):
+@router.get("/notice/{page_number}")
+@router.get("/notice") # 펑션 호출 방식
+async def notice(request:Request, page_number : Optional[int] = 1):
     notice_list = await collection_notice.get_all()
-    return templates.TemplateResponse(name="notice/notice_main.html", context={'request':request, 'notice_list' : notice_list})
+    condition = {}
+    notice_list, pagination = await collection_notice.getsbyconditionswithpagination(condition, page_number)
+    return templates.TemplateResponse(name="notice/notice_main.html", context={'request':request, 'notice_list' : notice_list, 'pagination' : pagination})
 
 # 공지사항의 글 하나를 클릭했을 때 : 주소 /clicktech/notice/{id}
 @router.get("/notice/{page_number}/{object_id}") # 펑션 호출 방식
@@ -178,4 +181,3 @@ async def faq_list(request:Request, page_number: Optional[int] = 1):
                                       , context={'request':request,
                                                  'list_faq' : list_faq,
                                                 'pagination': pagination })
-
