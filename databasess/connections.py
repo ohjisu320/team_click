@@ -1,6 +1,6 @@
 from typing import Any, List, Optional
 from beanie import init_beanie, PydanticObjectId
-from mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_main, Ad_create
+from databasess.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_main, Ad_create
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic_settings import BaseSettings
 from routes.paginations import Paginations
