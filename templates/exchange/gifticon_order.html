@@ -8,6 +8,7 @@
 <h1 class="text-center">선물 결제</h2>
 
 <h2 class="border-bottom">발송정보</h2>
+<br>
 <div class="row justify-content-start">
     <h4 class="col-2">발송번호</h4>
     <select name="" id="" class="col-6">
@@ -15,16 +16,17 @@
         <option value="">클릭테크 대표 번호로 보내기 (010-0000-0000)</option>
     </select>
 </div>
-<div class="row-type2">
-    <h4>보낸 사람</h4>
-    <input type="text" value="김하늘"> <!-- 고객 정보 넣기-->
+<br>
+<div class="row">
+    <h4 class="col-2">보낸 사람</h4>
+    <input type="text" value="김하늘" class="col-6"> <!-- 고객 정보 넣기-->
 </div>
-
+<br>
 <!-- 결재정보넣기 -->
 <h2 class="border-bottom">결재 정보</h2>
-<div class="col-type01 justify-cont">
+<div class="container row">
     <div class="col-7">
-        <div class="row-type03">
+        <div class="row">
             <div class="col-2"><img src="{{gifty.gifty_image}}" alt="기프티콘 이미지입니당"></div>
             <div class="col-8">
                 <span>{{gifty.gifty_brand}}</span>
@@ -33,23 +35,58 @@
             <div></div>
             <div class=""><span>{{gifty.gifty_price}}</span></div>
         </div>
-        <div class="row-type03">
+        <div class="">
             <h4>결재수단</h4>
-            <ul class="grid-container _tab04">
-                <li>신용카드</li>
-                <li>휴대폰</li>
-                <li>페이코</li>
-                <li>삼성페이</li>
-                <li>계좌이체</li>
-                <li>기타등등등</li>
+            <ul class="container row">
+                <li class="col-3">신용카드</li>
+                <li class="col-3">휴대폰</li>
+                <li class="col-3">페이코</li>
+                <li class="col-3">삼성페이</li>
+                <li class="col-3">계좌이체</li>
+                <li class="col-3">기타등등등</li>
             </ul>
         </div>
         <div>구매 취소 시, 결제 승인이 취소됩니다.</div>
     </div>
     <div class="col-3">
-        
+        <div class="card">
+            <h4 class="text-center border-bottom card-header">결제 금액</h4>
+            <table class="card-body">
+                <tr>
+                    <th>상품 금액</th>
+                    <td>{{gifty.gifty_price}}</td>
+                </tr>
+                <tr>
+                    <td>할인 금액</td>
+                    <td> -0 원</td>
+                </tr>
+                <tr>
+                    <td>쿠폰</td>
+                    <td> -0 원</td>
+                </tr>
+                <tr>
+                    <td>포인트</td>
+                    <td> -0 원</td>
+                </tr>
+            </table>
+            <table class="card-footer">
+                <tr>
+                    <th>결제수단</th>
+                    <td>신용카드</td>
+                </tr>
+                <tr>
+                    <td>결제금액</td>
+                    <td>
+                        <h3 class="text-danger">{{gifty.gifty_price}}</h3>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
+
+<!-- 구매 확인 및 동의 -->
+<h2 class="border-bottom fw-bold">구매 확인 및 동의</h2>
 
 
 
