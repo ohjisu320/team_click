@@ -25,10 +25,22 @@ async def usermain(request:Request):
     return templates.TemplateResponse(name="usermain.html", context={'request':request,
                                                                      'ad_main':ad_main})
 
-# Log-in 클릭했을 때 : 주소 /clicktech/login # !!html 수정 전!! #
+# Log-in 클릭했을 때 : 주소 /clicktech/login # !!html 수정 완!! #
 @router.get("/login") # 펑션 호출 방식
 async def login(request:Request):
     return templates.TemplateResponse(name="login/login.html", context={'request':request}) 
+
+# Log-in - 아이디찾기 클릭했을 때 : 주소 /clicktech/findid
+@router.get("/findid") # 펑션 호출 방식
+async def login(request:Request):
+    return templates.TemplateResponse(name="login/find_id.html", context={'request':request}) 
+
+# Log-in - 비밀번호찾기 클릭했을 때 : 주소 /clicktech/findpswd
+@router.get("/findpswd") # 펑션 호출 방식
+async def login(request:Request):
+    return templates.TemplateResponse(name="login/find_pswd.html", context={'request':request}) 
+
+
 
 # Sign-in 클릭했을 때 : 주소 /clicktech/join
 @router.get("/join") # 펑션 호출 방식
@@ -145,6 +157,10 @@ async def order(request : Request, object_id : PydanticObjectId ) :
 
 # 쿠폰교환페이지에서 쿠폰구매를 눌렀을 때(로그인이 되지 않았을 경우 로그인 페이지로 이동) : 주소 /
 
+# 결재 완료 시 : 주소 /clicktech/exchange/order/complete
+@router.get("/exchange/order/complete/{object_id}")
+async def order_complete(request:Request, object_id : PydanticObjectId ):
+    return templates.TemplateResponse(name="exchange/gifticon_complete.html", context={'request':request})
 
 from databasess.mongo_connect import Notice
 collection_notice = Database(Notice)
