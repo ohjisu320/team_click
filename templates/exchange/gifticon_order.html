@@ -28,7 +28,7 @@
 <div class="container row">
     <div class="col-7">
         <div class="row">
-            <div class="col-3"><img src="{{gifty.gifty_image}}" alt="기프티콘 이미지입니당"></div>
+            <div class="col-3"><img class="img-fluid" src="{{gifty.gifty_image}}" alt="기프티콘 이미지입니당"></div>
             <div class="col-9">
                 <span>{{gifty.gifty_brand}}</span>
                 <p>{{gifty.gifty_name}}</p>
@@ -87,9 +87,9 @@
         </div>
         <br>
         <div class="container justify-content-center">
-            <button class="btn-primary" type="button">
-                <a href="/clicktech/exchange/order/complete">결재 진행</a>
-            </button>
+
+                <a class="btn btn-primary" href="/clicktech/exchange/order/complete/{{gifty.id}}">결제 진행</a>
+
         </div>
     </div>
 </div>
