@@ -20,11 +20,16 @@
 <br>
 <div class="row">
     <h4 class="col-2">보낸 사람</h4>
-    <input type="text" value="김하늘" class="col-6"> <!-- 고객 정보 넣기-->
+    <input type="text" placeholder="김하늘" class="col-6"> <!-- 고객 정보 넣기-->
 </div>
 <br>
-<!-- 결재정보넣기 -->
-<h2 class="border-bottom fw-bold">결재 정보</h2>
+<div class="row">
+    <h4 class="col-2">받는 사람 번호</h4>
+    <input placeholder="010-0000-0000 형식 아니면 꿀꺽" type="text" class="col-6">
+</div>
+<br>
+<!-- 결제정보넣기 -->
+<h2 class="border-bottom fw-bold">결제 정보</h2>
 <div class="container row">
     <div class="col-7">
         <div class="row">
@@ -36,7 +41,7 @@
             <div class=""><span>{{gifty.gifty_price}}</span></div>
         </div>
         <div class="">
-            <h4>결재수단</h4>
+            <h4>결제수단</h4>
             <ul class="container row">
                 <li class="col-3">신용카드</li>
                 <li class="col-3">휴대폰</li>
@@ -94,13 +99,13 @@
     </div>
 </div>
 
-<!-- 구매 확인 및 동의 -->
+<!-- 구매 확인 s및 동의 -->
 <h2 class="border-bottom fw-bold">구매 확인 및 동의</h2>
 <div class="card mb-1 rounded-3 shadow-sm">
-    <div> 구매약관 어쩌구입니다. 돈을 내시는 것에 동의합니까?</div>
+    <div class="m-2"> 구매약관 어쩌구입니다. 돈을 내시는 것에 동의합니까?(필수)</div>
 </div>
 <div class="form-check">
-    <input type="checkbox" class="form-check-input">
+    <input type="checkbox" class="form-check-input"> 확인
 </div>
 
 
