@@ -11,6 +11,7 @@ from beanie import PydanticObjectId
 collection_ad_create = Database(Ad_create)
 collection_faq = Database(Faq)
 collection_notice = Database(Notice)
+collection_user = Database(User_info)
 
 
 router = APIRouter()
@@ -218,11 +219,6 @@ async def createfaq(request:Request):
 
 
 
-# 사용자 계정 관리 클릭했을 때 : 주소 /manager/user_account 
-@router.get("/user_account") # 펑션 호출 방식
-async def manager(request:Request):
-    return templates.TemplateResponse(name="manager/useraccount.html", context={'request':request})
-
 # 관리자 계정 관리 클릭했을 때 : 주소 /manager/manager_account
 @router.get("/manager_account") # 펑션 호출 방식
 async def manager(request:Request):
@@ -230,3 +226,26 @@ async def manager(request:Request):
 
 
 
+@router.get("/user_account/{page_number}") # 펑션 호출 방식
+@router.get("/user_account")
+async def get_user_account(request:Request, page_number: Optional[int] = 1):
+    user_dict = dict(await request.form())
+    user_list = await collection_user.get_all()
+    conditions = { }
+    # total = len(ad_list)
+    # pagination = Paginations(total,page_number)
+    try :
+        user_dict = dict(request._query_params)
+        conditions = { user_dict['key'] : { '$regex': user_dict["word"] } }
+    except :
+        conditions = { }
+    user_list, pagination = await collection_user.getsbyconditionswithpagination(conditions, page_number)
+    return templates.TemplateResponse(name="manager/useraccount.html", context={'request':request,
+                                                                            'user_list':user_list,
+                                                                            'pagination':pagination,
+                                                                             "user_dict":user_dict})
+
+@router.post("/user_account")
+async def delete_account(request: Request, object_id:PydanticObjectId):
+    await collection_user.delete_one(object_id)
+    return templates.TemplateResponse(name="manager/useraccount.html", context={'request':request})
