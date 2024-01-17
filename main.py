@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 app = FastAPI()
 # database의 세팅을 바꾸면 한번씩 재실행 시켜줘야 함.
-from databases.connections import Settings
+from databases.
 settings = Settings()
 
 @app.on_event("startup")
