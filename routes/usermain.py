@@ -148,6 +148,7 @@ from databases.mongo_connect import Notice
 collection_notice = Database(Notice)
 # notice_title, main_text, date
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
+@router.get("notice/{page_number}")
 @router.get("/notice") # 펑션 호출 방식
 async def notice(request:Request):
     notice_list = await collection_notice.get_all()
