@@ -14,8 +14,8 @@ app = FastAPI()
 collection_user = Database(User_info)
 
 templates = Jinja2Templates(directory="templates/")
-from databases.connections import Database
-from databases.mongo_connect import Ad_main
+from databasess.connections import Database
+from databasess.mongo_connect import Ad_main
 collection_ad_main = Database(Ad_main)
 
 # 로고 클릭했을 때 : 주소 /clicktech/
@@ -48,7 +48,7 @@ app.include_router(router)
 
 # database 의 connections에 정의된 Database 클래스와 user_info collection을 정의한 User_info 클래스를 import
 
-from databases.mongo_connect import User_info
+from databasess.mongo_connect import User_info
 collection_user = Database(User_info)
 @router.post("/login") # 펑션 호출 방식
 async def user_input_post(request:Request):
@@ -75,7 +75,7 @@ async def user_input_post(request:Request):
 # async def join(request:Request):
 #     return templates.TemplateResponse(name="join/step4.html", context={'request':request})
 
-from databases.mongo_connect import Ad_create
+from databasess.mongo_connect import Ad_create
 collection_ad_create = Database(Ad_create)
 # 전체리스트 클릭했을 때 : 주소 /clicktech/alllist
 @router.get("/alllist/") # 펑션 호출 방식
@@ -98,7 +98,7 @@ async def detailad(request:Request, object_id):
     return templates.TemplateResponse(name="offerwall/allad_detail.html", context={'request':request,
                                                                                    "ad_detail":ad_detail})
 
-from databases.mongo_connect import Gifty_info
+from databasess.mongo_connect import Gifty_info
 collection_gifty = Database(Gifty_info)
 # 쿠폰교환 클릭했을 때 : 주소 /clicktech/exchange
 @router.get("/exchange") # 펑션 호출 방식
@@ -146,7 +146,7 @@ async def order(request : Request, object_id : PydanticObjectId ) :
 # 쿠폰교환페이지에서 쿠폰구매를 눌렀을 때(로그인이 되지 않았을 경우 로그인 페이지로 이동) : 주소 /
 
 
-from databases.mongo_connect import Notice
+from databasess.mongo_connect import Notice
 collection_notice = Database(Notice)
 # notice_title, main_text, date
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
@@ -164,7 +164,7 @@ async def notice(request:Request, object_id : PydanticObjectId):
     notice = await collection_notice.get(object_id)
     return templates.TemplateResponse(name="notice/notice_detail.html", context={'request':request, 'notice' : notice})
 
-from databases.mongo_connect import Faq
+from databasess.mongo_connect import Faq
 from typing import Optional
 # # FAQ 클릭했을 때 : 주소 /clicktech/faq
 collection_faq = Database(Faq)
