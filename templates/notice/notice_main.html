@@ -5,39 +5,44 @@
 
 {% block main %}
 
-<div class="container row">
-    <div class="justify-content-center">공지사항</div>
-    <form action="">
-        <select name="key" id="">
-            <option value="">뭔가 쓸데가 있을지도</option>
-            <option value="">냠냠</option>
-            <option value="">쩝쩝</option>
-            <option value="">히히</option>
-        </select>
-    </form>
-    <form action="">
-        <table class="table table-hover table-borderless">
-            <thead class="text-center">
-                <tr>
-                    <th class="col">번호</th>
-                    <th class="col">제목</th>
-                    <th class="col">조회수</th>
-                    <th class="col">날짜</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for notice in notice_list %}
-                <tr formaction="/clicktech/notice/{{pagination.first_page}}/{notice.id}">
-                    <td> {{loop.index}} </td>
-                    <td> {{notice.notice_title}}</td>
-                    <td> 조회수 </td>
-                    <td> {{notice.date}}</td>
-                    <td><button type="submit">삭제</button></td>
-                    <td><button type="submit">메인</button></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+{% if notice_list == False %}
+공지사항이 없습니당
+
+{% else %}
+    <div class="container row">
+        <div class="justify-content-center">공지사항</div>
+        <form action="">
+            <select name="key" id="">
+                <option value="">뭔가 쓸데가 있을지도</option>
+                <option value="">냠냠</option>
+                <option value="">쩝쩝</option>
+                <option value="">히히</option>
+            </select>
+        </form>
+        <form action="">
+            <table class="table table-hover table-borderless">
+                <thead class="text-center">
+                    <tr>
+                        <th class="col">번호</th>
+                        <th class="col">제목</th>
+                        <th class="col">조회수</th>
+                        <th class="col">날짜</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for notice in notice_list %}
+                    <tr formaction="/clicktech/notice/{{pagination.first_page}}/{notice.id}">
+                        <td> {{loop.index}} </td>
+                        <td> {{notice.notice_title}}</td>
+                        <td> 조회수 </td>
+                        <td> {{notice.date}}</td>
+                        <td><button type="submit">삭제</button></td>
+                        <td><button type="submit">메인</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
         <p>광고수 : {{pagination.total_records}}</p>
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-end">
@@ -68,8 +73,8 @@
                 </li>
             </ul>
         </nav>
-    </form>
-</div>
+    </div>
+{% endif %}
 
 
 {% endblock main %}

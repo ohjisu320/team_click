@@ -2,19 +2,20 @@ from fastapi import FastAPI, APIRouter, Request, Form
 from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
-from databases.connections import Database
-from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_main, Ad_create
+from databasess.connections import Database
+from databasess.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_main, Ad_create
 from typing import Optional
 from routes.paginations import Paginations
-from databases.mongo_connect import User_info
+from databasess.mongo_connect import User_info
+
 
 router = APIRouter()
 app = FastAPI()
 collection_user = Database(User_info)
 
 templates = Jinja2Templates(directory="templates/")
-from databases.connections import Database
-from databases.mongo_connect import Ad_main
+from databasess.connections import Database
+from databasess.mongo_connect import Ad_main
 collection_ad_main = Database(Ad_main)
 
 # 로고 클릭했을 때 : 주소 /clicktech/
@@ -32,12 +33,12 @@ async def login(request:Request):
 # Sign-in 클릭했을 때 : 주소 /clicktech/join
 @router.get("/join") # 펑션 호출 방식
 async def join(request:Request):
-    return templates.TemplateResponse(name="join/step1.html", context={'request':request})
+    return templates.TemplateResponse(name="join/step2.html", context={'request':request})
 
 # Sign-in 클릭했을 때 : 주소 /clicktech/join/step2
-@router.get("/join/step2") # 펑션 호출 방식
-async def join(request:Request):
-    return templates.TemplateResponse(name="join/step2.html", context={'request':request})
+# @router.get("/join/step2") # 펑션 호출 방식
+# async def join(request:Request):
+#     return templates.TemplateResponse(name="join/step2.html", context={'request':request})
 
 @router.post("/join/step3")
 async def read_item(request: Request, user_terms1: str = Form('off'), user_terms2: str = Form('off'), user_terms3: str = Form('off'), user_terms4: str = Form('off')):
@@ -47,11 +48,12 @@ app.include_router(router)
 
 # database 의 connections에 정의된 Database 클래스와 user_info collection을 정의한 User_info 클래스를 import
 
-from databases.mongo_connect import User_info
+from databasess.mongo_connect import User_info
 collection_user = Database(User_info)
-@router.post("/join/step4") # 펑션 호출 방식
+@router.post("/login") # 펑션 호출 방식
 async def user_input_post(request:Request):
     user_dict = dict(await request.form())
+    user_dict['point'] = 1000
     try:
         user_dict['user_terms1'] = user_dict.get('user_terms1', 'off')
         user_dict['user_terms2'] = user_dict.get('user_terms2', 'off')
@@ -65,7 +67,7 @@ async def user_input_post(request:Request):
         await collection_user.save(user)
     # 리스트 정보
     user_list = await collection_user.get_all()
-    return templates.TemplateResponse(name="join/step4.html"
+    return templates.TemplateResponse(name="login/login.html"
                                       , context={'request':request, "user_info":user_list})
 
 # # Sign-in 클릭했을 때 : 주소 /clicktech/join
@@ -73,7 +75,7 @@ async def user_input_post(request:Request):
 # async def join(request:Request):
 #     return templates.TemplateResponse(name="join/step4.html", context={'request':request})
 
-from databases.mongo_connect import Ad_create
+from databasess.mongo_connect import Ad_create
 collection_ad_create = Database(Ad_create)
 # 전체리스트 클릭했을 때 : 주소 /clicktech/alllist
 @router.get("/alllist/") # 펑션 호출 방식
@@ -96,7 +98,7 @@ async def detailad(request:Request, object_id):
     return templates.TemplateResponse(name="offerwall/allad_detail.html", context={'request':request,
                                                                                    "ad_detail":ad_detail})
 
-from databases.mongo_connect import Gifty_info
+from databasess.mongo_connect import Gifty_info
 collection_gifty = Database(Gifty_info)
 # 쿠폰교환 클릭했을 때 : 주소 /clicktech/exchange
 @router.get("/exchange") # 펑션 호출 방식
@@ -144,14 +146,17 @@ async def order(request : Request, object_id : PydanticObjectId ) :
 # 쿠폰교환페이지에서 쿠폰구매를 눌렀을 때(로그인이 되지 않았을 경우 로그인 페이지로 이동) : 주소 /
 
 
-from databases.mongo_connect import Notice
+from databasess.mongo_connect import Notice
 collection_notice = Database(Notice)
 # notice_title, main_text, date
 # 공지사항 클릭했을 때 : 주소 /clicktech/notice
-@router.get("/notice/{page_number}") # 펑션 호출 방식
-async def notice(request:Request):
+@router.get("/notice/{page_number}")
+@router.get("/notice") # 펑션 호출 방식
+async def notice(request:Request, page_number : Optional[int] = 1):
     notice_list = await collection_notice.get_all()
-    return templates.TemplateResponse(name="notice/notice_main.html", context={'request':request, 'notice_list' : notice_list})
+    condition = {}
+    notice_list, pagination = await collection_notice.getsbyconditionswithpagination(condition, page_number)
+    return templates.TemplateResponse(name="notice/notice_main.html", context={'request':request, 'notice_list' : notice_list, 'pagination' : pagination})
 
 # 공지사항의 글 하나를 클릭했을 때 : 주소 /clicktech/notice/{id}
 @router.get("/notice/{page_number}/{object_id}") # 펑션 호출 방식
@@ -159,52 +164,20 @@ async def notice(request:Request, object_id : PydanticObjectId):
     notice = await collection_notice.get(object_id)
     return templates.TemplateResponse(name="notice/notice_detail.html", context={'request':request, 'notice' : notice})
 
-from databases.mongo_connect import Faq
+from databasess.mongo_connect import Faq
 from typing import Optional
 # # FAQ 클릭했을 때 : 주소 /clicktech/faq
 collection_faq = Database(Faq)
-@router.get("/faq") # 펑션 호출 방식
-async def faq(request:Request,page_number: Optional[int] = 1):
+@router.get("/faq/{page_number}")
+@router.get("/faq")
+async def faq_list(request:Request, page_number: Optional[int] = 1):
     await request.form()
     list_faq = await collection_faq.get_all()
-    total = len(list_faq)
-    pagination = Paginations(total,page_number)
+    print(list_faq)
     conditions = { }
-    list_faq_pagination, pagination = await collection_faq.getsbyconditionswithpagination(page_number,conditions)
-    return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
-                                                                         'list_faq' : list_faq_pagination,
-                                                                         'pagination': pagination })
-
-@router.get("/faq/{categories}") # 펑션 호출 방식
-async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
-    conditions = {'categories': { '$regex': categories }}
-    cate_list_faq = await collection_faq.getsbyconditions(conditions)
-    total = len(cate_list_faq)
-    pagination = Paginations(total,page_number)
-    list_faq_pagination,pagination = await collection_faq.getsbyconditionswithpagination(conditions,page_number)
-    return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
-                                                                        'list_faq' : list_faq_pagination,
-                                                                        'pagination': pagination })
-
-# @router.get("/faq/{categories}")
-# @router.get("/faq")
-# async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
-#     # await request.form()
-#     list_faq = await collection_faq.get_all()
-    
-#     print(list_faq)
-#     conditions = { }
-#     try :
-#         search_word = list_faq["categories"]
-#     except:
-#         search_word = None
-#     if search_word:     # 검색어 작성
-#         conditions = {'categories' : { '$regex': categories }}
-#     # db.answers.find({'name':{ '$regex': '김' }})
-#     # { 'name': { '$regex': user_dict.word } }
-#     list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
-#                                                                      ,page_number)
-#     return templates.TemplateResponse(name="faq/faq_main.html"
-#                                       , context={'request':request,
-#                                                  'list_faq' : list_faq,
-#                                                 'pagination': pagination })
+    list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
+                                                                     ,page_number)
+    return templates.TemplateResponse(name="faq/faq_main.html"
+                                      , context={'request':request,
+                                                 'list_faq' : list_faq,
+                                                'pagination': pagination })
