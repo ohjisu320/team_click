@@ -48,7 +48,15 @@ Click-Tech
             <tbody class="text-center"sss>
                 {% for user in user_list %}
                 <tr>
-                    <td> {{ loop.index }}</td>
+                    <td> {{pagination.start_record_number +  loop.index }}</td>
+                    <!-- <td>
+                        {% if user.user_name =="이름" %}
+                        이름
+                        {% elif user.user_id =="아이디" %}
+                        아이디
+                        {% elif user.user_email =="이메일" %}
+                        이메일
+                        {% endif %}</td> -->
                     <td>{{ user.user_id }}</td>
                     <td>{{ user.user_pswd }}</td>
                     <td>{{ user.user_name }}</td>
