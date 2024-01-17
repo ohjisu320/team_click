@@ -107,7 +107,7 @@ async def ad(request:Request, page_number: Optional[int] = 1):
                                                                             'ad_list':ad_list,
                                                                             'pagination':pagination,
                                                                              "user_dict":user_dict})
-# FAQ 생성/관리에서 생성 클릭했을 때 : 주소 /manager/faq/delete/object_id
+# 광고 리스트에서 삭제 클릭했을 때 : /manager/ad/delete/{object_id}
 @router.get("/ad/delete/{object_id}")
 async def delete_review(request: Request, object_id:PydanticObjectId):
     await collection_ad_create.delete_one(object_id)
