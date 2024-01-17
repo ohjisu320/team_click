@@ -189,7 +189,6 @@ collection_faq = Database(Faq)
 async def faq_list(request:Request, page_number: Optional[int] = 1):
     await request.form()
     list_faq = await collection_faq.get_all()
-    print(list_faq)
     conditions = { }
     list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions
                                                                      ,page_number)

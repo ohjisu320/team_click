@@ -66,5 +66,15 @@ class Database:
             await doc.delete()
             return True
         return False
+    
+    # 수정
+    async def update_one(self, id: PydanticObjectId, update_dict: dict) -> bool:
+        doc = await self.model.get(id)
+        if doc:
+            for key, value in update_dict.items():
+                setattr(doc, key, value)
+            await doc.save()
+            return True
+        return False
 
 
