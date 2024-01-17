@@ -63,16 +63,12 @@
                         <table class="inline">
                             <tr>
                                 <td>
-                                    <form action="/clicktech" method="get">
-                                        <div>아이디(E-mail)</div>
-                                        <input type="text" placeholder="아이디(E-mail)을 입력해 주세요.">
+                                    <form>
+                                        <div>아이디</div>
+                                        <input type="text" name="user_id" placeholder="아이디를 입력해 주세요." id="user_id">
                                         <div>비밀번호</div>
-                                        <input type="password" size="70" placeholder="비밀번호를 입력해 주세요.">
-                                        <div class="find">
-                                            <a href="./login.html">아이디/비밀번호찾기</a> ㅣ<a href="login.html">회원가입</a>
-                                        </div>
-
-                                        <button type="submit" class="login">로그인</button>
+                                        <input type="password" name="user_pswd" id="user_pswd" size="70" placeholder="비밀번호를 입력해 주세요.">
+                                        <button type="submit" formaction="/clicktech/login" formmethod="post" class="login">로그인</button>
                                     </form>
                                 </td>
                             </tr>
