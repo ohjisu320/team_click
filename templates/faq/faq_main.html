@@ -9,23 +9,25 @@ FAQ
     <div class="container col-10">
         <div class="btn-group col-12" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-light btn-outline-dark col-2" formaction="/clicktech/faq"
-                formmethod="get">전체</button>
-            <button type="button" class="btn btn-light btn-outline-dark col-2" formaction="/clicktech/faq/과학"
-                formmethod="get">과학</button>
+                formmethod="get" value=" {{ list_faq }}">전체</button>
+            <button type="button" class="btn btn-light btn-outline-dark col-2" formaction="/clicktech/faq/서비스안내"
+                formmethod="get" value=" {{list_faq.서비스안내}}">서비스안내</button>
+            <button type="button" class="btn btn-light btn-outline-dark col-2" formaction="/clicktech/faq/서비스이용"
+                formmethod="get" value=" {{list_faq.서비스이용}}">서비스이용</button>
             <button type="button" class="btn btn-light btn-outline-dark col-2" formaction="/clicktech/faq/역사"
-                formmethod="get">역사</button>
+                formmethod="get" value=" {{list_faq.역사}}">역사</button>
             <button type="button" class="btn btn-light btn-outline-dark col-2" formaction="/clicktech/faq/문화"
-                formmethod="get">문화</button>
+                formmethod="get" value=" {{list_faq.문화}}">문화</button>
             <button type="button" class="btn btn-light btn-outline-dark col-2" formaction="/clicktech/faq/기술"
-                formmethod="get">기술</button>
+                formmethod="get" value=" {{list_faq.기술}}">기술</button>
             <button type="button" class="btn btn-light btn-outline-dark col-2" formaction="/clicktech/faq/사회"
-                formmethod="get">사회</button>
+                formmethod="get" value=" {{list_faq.사회}}">사회</button>
         </div>
     </div>
 
 
     {%for faq in list_faq %}
-    <div class="accordion accordion-flush col-10" id="accordionFlushExample">
+    <div class="accordion accordion-flush col-10" id="accordionFlushExample" name="{{ faq.id }}">
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"

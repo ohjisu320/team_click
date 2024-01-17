@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter, Request, Form
-from starlette.responses import HTMLResponse
+from starlette.responses import HTMLResponse , RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from databasess.connections import Database
@@ -25,10 +25,22 @@ async def usermain(request:Request):
     return templates.TemplateResponse(name="usermain.html", context={'request':request,
                                                                      'ad_main':ad_main})
 
-# Log-in 클릭했을 때 : 주소 /clicktech/login # !!html 수정 전!! #
+# Log-in 클릭했을 때 : 주소 /clicktech/login # !!html 수정 완!! #
 @router.get("/login") # 펑션 호출 방식
 async def login(request:Request):
     return templates.TemplateResponse(name="login/login.html", context={'request':request}) 
+
+# Log-in - 아이디찾기 클릭했을 때 : 주소 /clicktech/findid
+@router.get("/findid") # 펑션 호출 방식
+async def login(request:Request):
+    return templates.TemplateResponse(name="login/find_id.html", context={'request':request}) 
+
+# Log-in - 비밀번호찾기 클릭했을 때 : 주소 /clicktech/findpswd
+@router.get("/findpswd") # 펑션 호출 방식
+async def login(request:Request):
+    return templates.TemplateResponse(name="login/find_pswd.html", context={'request':request}) 
+
+
 
 # Sign-in 클릭했을 때 : 주소 /clicktech/join
 @router.get("/join") # 펑션 호출 방식
@@ -50,7 +62,7 @@ app.include_router(router)
 
 from databasess.mongo_connect import User_info
 collection_user = Database(User_info)
-@router.post("/login") # 펑션 호출 방식
+@router.post("/confirm") # 펑션 호출 방식
 async def user_input_post(request:Request):
     user_dict = dict(await request.form())
     user_dict['point'] = 1000
@@ -185,3 +197,15 @@ async def faq_list(request:Request, page_number: Optional[int] = 1):
                                       , context={'request':request,
                                                  'list_faq' : list_faq,
                                                 'pagination': pagination })
+
+
+@router.post("/login")
+async def login_post(request: Request):
+  user_list = await collection_user.get_all()
+  login_data = await request.form()
+  for user in user_list:
+    if user.user_id == login_data['user_id']:
+      if user.user_pswd == login_data['user_pswd']:
+        return templates.TemplateResponse("usermain.html", context={'request':request,'user': user})
+
+  return templates.TemplateResponse("usermain.html")

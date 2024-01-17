@@ -10,23 +10,24 @@ Click-Tech
 
 <div class="container row">
     <div>광고 리스트 보기</div>
-    <div class="text-div.end">
-        <form class="">
-            <select name="key" id="">
+    <form class="">
+        <div class="text-div.end">
+
+            <select name="key" id="" value="{{user_dict.key}}">
                 <option value="type">광고타입</option>
                 <option value="brand">브랜드</option>
                 <option value="contents">광고제목</option>
                 <option value="detail_contents">광고내용</option>
                 <option value="point">포인트</option>
             </select>
-            <input type="search" name="word" id="">
+            <input type="search" name="word" id=""  value="{{user_dict.word}}">
             <button type="submit" formmethod="get">검색</button>
-        </form>
-    </div>
-    {% if ad_list == False %}
-    <div>아직 광고가 없슴둥</div>
-    {% else %}
-    <form action="">
+
+        </div>
+        {% if ad_list == False %}
+        <div>아직 광고가 없슴둥</div>
+        {% else %}
+
         <table class="table table-hover table-borderless">
             <thead class="text-center">
                 <tr>
@@ -72,28 +73,28 @@ Click-Tech
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-end">
                 <li class="page-item {{ '' if pagination.has_previous_block else 'disabled' }}">
-                    <button type="submit" class="page-link" formaction="/manager/adlist/{{pagination.first_page}}">
+                    <button type="submit" class="page-link" formaction="/manager/adlist/{{pagination.first_page}}?key={{user_dict.key}}&word={{user_dict.word}}">
                         맨 처음
                     </button>
 
                 </li>
                 <li class="page-item {{ '' if pagination.has_previous_page else 'disabled' }}">
                     <button type="submit" class="page-link"
-                        formaction="/manager/adlist/{{pagination.previous_page}}">이전</button>
+                        formaction="/manager/adlist/{{pagination.previous_page}}?key={{user_dict.key}}&word={{user_dict.word}}">이전</button>
                 </li>
                 {% for page_num in pagination.current_page_range %}
                 <li class="page-item {{ 'active' if page_num == pagination.current_page else '' }}">
-                    <button type="submit" class="page-link" formaction="/manager/adlist/{{page_num }}">
+                    <button type="submit" class="page-link" formaction="/manager/adlist/{{page_num}}?key={{user_dict.key}}&word={{user_dict.word}}">
                         {{page_num}}
                     </button>
                 </li>
                 {% endfor %}
                 <li class="page-item {{ '' if pagination.has_next_page else 'disabled' }}">
                     <button type="submit" class="page-link"
-                        formaction="/manager/adlist/{{ pagination.next_page }}">다음</button>
+                        formaction="/manager/adlist/{{ pagination.next_page }}?key={{user_dict.key}}&word={{user_dict.word}}">다음</button>
                 </li>
                 <li class="page-item {{ '' if pagination.has_next_block else 'disabled' }}">
-                    <button type="submit" class="page-link" formaction="/manager/adlist/{{ pagination.last_page }}">
+                    <button type="submit" class="page-link" formaction="/manager/adlist/{{ pagination.last_page }}/?key={{user_dict.key}}&word={{user_dict.word}}">
                         맨 끝
                     </button>
                 </li>
