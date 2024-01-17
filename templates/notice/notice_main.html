@@ -28,7 +28,7 @@
             </thead>
             <tbody>
                 {% for notice in notice_list %}
-                <tr formaction="/clicktech/notice/{notice.id}">
+                <tr formaction="/clicktech/notice/{{pagination.first_page}}/{notice.id}">
                     <td> {{loop.index}} </td>
                     <td> {{notice.notice_title}}</td>
                     <td> 조회수 </td>

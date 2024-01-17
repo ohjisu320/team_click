@@ -3,10 +3,11 @@ from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from databases.connections import Database
-from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_alllist, Ad_main, Ad_create
+from databases.mongo_connect import User_info, Gifty_info, Notice, Faq, Ad_main, Ad_create
 from typing import Optional
 from routes.paginations import Paginations
 from databases.mongo_connect import User_info
+
 
 router = APIRouter()
 app = FastAPI()
@@ -32,12 +33,12 @@ async def login(request:Request):
 # Sign-in 클릭했을 때 : 주소 /clicktech/join
 @router.get("/join") # 펑션 호출 방식
 async def join(request:Request):
-    return templates.TemplateResponse(name="join/step1.html", context={'request':request})
+    return templates.TemplateResponse(name="join/step2.html", context={'request':request})
 
 # Sign-in 클릭했을 때 : 주소 /clicktech/join/step2
-@router.get("/join/step2") # 펑션 호출 방식
-async def join(request:Request):
-    return templates.TemplateResponse(name="join/step2.html", context={'request':request})
+# @router.get("/join/step2") # 펑션 호출 방식
+# async def join(request:Request):
+#     return templates.TemplateResponse(name="join/step2.html", context={'request':request})
 
 @router.post("/join/step3")
 async def read_item(request: Request, user_terms1: str = Form('off'), user_terms2: str = Form('off'), user_terms3: str = Form('off'), user_terms4: str = Form('off')):
@@ -49,9 +50,10 @@ app.include_router(router)
 
 from databases.mongo_connect import User_info
 collection_user = Database(User_info)
-@router.post("/join/step4") # 펑션 호출 방식
+@router.post("/login") # 펑션 호출 방식
 async def user_input_post(request:Request):
     user_dict = dict(await request.form())
+    user_dict['point'] = 1000
     try:
         user_dict['user_terms1'] = user_dict.get('user_terms1', 'off')
         user_dict['user_terms2'] = user_dict.get('user_terms2', 'off')
@@ -65,7 +67,7 @@ async def user_input_post(request:Request):
         await collection_user.save(user)
     # 리스트 정보
     user_list = await collection_user.get_all()
-    return templates.TemplateResponse(name="join/step4.html"
+    return templates.TemplateResponse(name="login/login.html"
                                       , context={'request':request, "user_info":user_list})
 
 # # Sign-in 클릭했을 때 : 주소 /clicktech/join
@@ -155,7 +157,7 @@ async def notice(request:Request):
     return templates.TemplateResponse(name="notice/notice_main.html", context={'request':request, 'notice_list' : notice_list})
 
 # 공지사항의 글 하나를 클릭했을 때 : 주소 /clicktech/notice/{id}
-@router.get("/notice/{object_id}") # 펑션 호출 방식
+@router.get("/notice/{page_number}/{object_id}") # 펑션 호출 방식
 async def notice(request:Request, object_id : PydanticObjectId):
     notice = await collection_notice.get(object_id)
     return templates.TemplateResponse(name="notice/notice_detail.html", context={'request':request, 'notice' : notice})
@@ -165,27 +167,27 @@ from typing import Optional
 # # FAQ 클릭했을 때 : 주소 /clicktech/faq
 collection_faq = Database(Faq)
 @router.get("/faq") # 펑션 호출 방식
-async def faq(request:Request,page_number: Optional[int] = 1):
-    await request.form()
-    list_faq = await collection_faq.get_all()
-    total = len(list_faq)
-    pagination = Paginations(total,page_number)
-    conditions = { }
-    list_faq_pagination, pagination = await collection_faq.getsbyconditionswithpagination(page_number,conditions)
-    return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
-                                                                         'list_faq' : list_faq_pagination,
-                                                                         'pagination': pagination })
+# async def faq(request:Request,page_number: Optional[int] = 1):
+#     await request.form()
+#     list_faq = await collection_faq.get_all()
+#     total = len(list_faq)
+#     pagination = Paginations(total,page_number)
+#     conditions = { }
+#     list_faq_pagination, pagination = await collection_faq.getsbyconditionswithpagination(page_number,conditions)
+#     return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
+#                                                                          'list_faq' : list_faq_pagination,
+#                                                                          'pagination': pagination })
 
-@router.get("/faq/{categories}") # 펑션 호출 방식
-async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
-    conditions = {'categories': { '$regex': categories }}
-    cate_list_faq = await collection_faq.getsbyconditions(conditions)
-    total = len(cate_list_faq)
-    pagination = Paginations(total,page_number)
-    list_faq_pagination,pagination = await collection_faq.getsbyconditionswithpagination(conditions,page_number)
-    return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
-                                                                        'list_faq' : list_faq_pagination,
-                                                                        'pagination': pagination })
+# @router.get("/faq/{categories}") # 펑션 호출 방식
+# async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
+#     conditions = {'categories': { '$regex': categories }}
+#     cate_list_faq = await collection_faq.getsbyconditions(conditions)
+#     total = len(cate_list_faq)
+#     pagination = Paginations(total,page_number)
+#     list_faq_pagination,pagination = await collection_faq.getsbyconditionswithpagination(conditions,page_number)
+#     return templates.TemplateResponse(name="faq/faq_main.html", context={'request':request,
+#                                                                         'list_faq' : list_faq_pagination,
+#                                                                         'pagination': pagination })
 
 # @router.get("/faq/{categories}")
 # @router.get("/faq")
@@ -195,12 +197,12 @@ async def faq_list(request:Request,categories, page_number: Optional[int] = 1):
     
 #     print(list_faq)
 #     conditions = { }
-#     try :
-#         search_word = list_faq["categories"]
-#     except:
-#         search_word = None
-#     if search_word:     # 검색어 작성
-#         conditions = {'categories' : { '$regex': categories }}
+#     # try :
+#     #     search_word = list_faq["categories"]
+#     # except:
+#     #     search_word = None
+#     # if search_word:     # 검색어 작성
+#     #     conditions = {'categories' : { '$regex': categories }}
 #     # db.answers.find({'name':{ '$regex': '김' }})
 #     # { 'name': { '$regex': user_dict.word } }
 #     list_faq, pagination = await collection_faq.getsbyconditionswithpagination(conditions

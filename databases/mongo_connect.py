@@ -3,17 +3,6 @@ from typing import Optional, List
 from beanie import Document, Link
 from pydantic import BaseModel, EmailStr
 
-# 광고 리스트
-class Ad_alllist(Document):
-    type : Optional[str] = None
-    brand : Optional[str] = None
-    contents : Optional[str] = None
-    thumnail : Optional[str] = None
-    detail_contents : Optional[str] = None
-    point : Optional[int] = None
-
-    class Settings:
-        name = "ad_alllist"
 
 # 광고 생성 리스트
 class Ad_create(Document):
@@ -81,6 +70,7 @@ class User_info(Document, BaseModel):
     user_terms2: Optional[str] = None
     user_terms3: Optional[str] = None
     user_terms4: Optional[str] = None
+    point: Optional[int] = None
 
     class Settings:
         name = "user_info"
