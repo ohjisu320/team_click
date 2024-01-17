@@ -10,6 +10,9 @@ Click-Tech
 
 <div class="container row">
     <div>공지사항 리스트 보기</div>
+    <form action="">
+        <div><button class="btn btn-primary" type="submit" formaction="/manager/notice/create" formmethod="post">공지사항 생성</button></div>
+    </form>
     <div class="text-end">
         <form class="">
             <select name="key" id="">
@@ -21,8 +24,9 @@ Click-Tech
             <button type="submit" formmethod="get">검색</button>
         </form>
     </div>
-    {% if ad_list == False %}
-    <div>아직 광고가 없슴둥</div>
+    
+    {% if list_notice == False %}
+    <div>아직 공지사항이 없슴둥</div>
     {% else %}
     <form action="">
         <table class="table table-hover table-borderless">
@@ -38,14 +42,14 @@ Click-Tech
             </thead>
 
             <tbody>
-                {% for notice in list_notice %}
+               {% for notice in list_notice %}
                 <tr>
-                    <td> {{loop.index}}</td>
+                    <td> {{pagination.start_record_number + loop.index}}</td>
                     <td>{{ notice.notice_title }}</td>
                     <td>{{ notice.main_text }}</td>
                     <td>{{ notice.date }}</td>
-                    <td><button type="submit">삭제</button></td>
-                    <td><button type="submit">메인</button></td>
+                    <td class="text-center"><button type="submit" formaction="/manager/notice/delete/{{notice.id}}" formmethod="get">삭제</button></td>
+                    <td class="text-center"><button type="submit">수정</button></td>
                 </tr>
                 {% endfor %}
             </tbody>

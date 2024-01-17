@@ -42,7 +42,7 @@ Click-Tech
             <tbody>
                 {% for faq in list_faq %}
                 <tr>
-                    <td> {{loop.index}}</td>
+                    <td> {{pagination.start_record_number + loop.index}}</td>
                     <td>{{ faq.categories }}</td>
                     <td>{{ faq.question_title }}</td>
                     <td>{{ faq.answer_main_text }}</td>
