@@ -5,5 +5,22 @@
 
 
 {% block main %}
-공지사항 세부입니다.
+
+<div class="container">
+    <div class="card">
+        <div class="card-header row">
+            <h3 class="col-10">제목 : {{notice.notice_title}}</h3>
+            <div class="col-2"> 날짜 : {{notice.date}} </div>
+        </div>
+        <div class="card-body">
+            <p>{{notice.main_text}}</p>
+        </div>
+    </div>
+    <a href="/clicktech/notice" class="btn btn-primary">
+        목록으로
+    </a>
+    
+</div>
+
+
 {% endblock main %}

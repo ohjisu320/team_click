@@ -153,7 +153,7 @@ async def order_complete(request:Request, object_id : PydanticObjectId ):
 from databasess.mongo_connect import Notice
 collection_notice = Database(Notice)
 # notice_title, main_text, date
-# 공지사항 클릭했을 때 : 주소 /clicktech/notice
+# 공지사항 list : 주소 /clicktech/notice/1
 @router.get("/notice/{page_number}")
 @router.get("/notice") # 펑션 호출 방식
 async def notice(request:Request, page_number : Optional[int] = 1):
@@ -163,7 +163,7 @@ async def notice(request:Request, page_number : Optional[int] = 1):
     return templates.TemplateResponse(name="notice/notice_main.html", context={'request':request, 'notice_list' : notice_list, 'pagination' : pagination})
 
 # 공지사항의 글 하나를 클릭했을 때 : 주소 /clicktech/notice/{id}
-@router.get("/notice/{page_number}/{object_id}") # 펑션 호출 방식
+@router.get("/notice/detail/{object_id}") # 펑션 호출 방식
 async def notice(request:Request, object_id : PydanticObjectId):
     notice = await collection_notice.get(object_id)
     return templates.TemplateResponse(name="notice/notice_detail.html", context={'request':request, 'notice' : notice})
