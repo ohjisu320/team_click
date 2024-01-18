@@ -27,9 +27,9 @@
 |COLLECTION이름|value값|
 |--|--|
 |ad_create|type, brand, contents, thumnail, thumnail_url, detail_contents, points|
-|ad_main||
-|faq||
-|gifty_info||
+|ad_main|type, brand, contents, thumnail, thumnail_url, |
+|faq|categories, question_title, question_main_text|
+|gifty_info|gifty_style, gifty_image, gifty_brand, gifty_name, gifty_price, gifty_datail, gitfy_caution |
 |notice||
 |user_info||
 |user_log||
