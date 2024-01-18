@@ -1,24 +1,30 @@
 # CLICK-TECH PROJECT
-### team-click
+### 팀명 : team-click
 ### 프로젝트 기간
 - 1차 : 2023.01.11~2024.01.17
-## :선글라스: 구성원
----
+
+## 😎 구성원
 |이름|역할|
 |--|--|
 |오지수|PM, 프론트엔드, 백엔드|
 |한동철|프론트 엔드|
 |김덕재|프론트엔드, 백엔드|
 |김하늘|웹 스크래핑, 프론트엔드, 백엔드|
-## :링크: 링크
----
-- [요구사항 협의서]<https://docs.google.com/spreadsheets/d/1X8P04WVEI0UHHBgwnm6sdEGvcQMMdDbG/edit#gid=1451597086>
-- [Naming Rule]<https://docs.google.com/spreadsheets/d/1Wv_UeDGFgwWSKbVt_ljegem_74iAO51d/edit#gid=1553145129>
-- [화면 정의서]<https://app.diagrams.net/#G1gkcP13qSXsKN-8vhqlf_jbOyH3H1UWe8>
-- [프로그램 리스트]<https://docs.google.com/spreadsheets/d/1PkNy5FeMStLbZLwcCxHNW4hD4sRn7vET/edit#gid=389956398>
-## :영사기: 구현 영상 및 링크
-## :선물: COLLECTION
-## :타나바타_나무: 일정 기록
+
+
+## 🔗 링크
+- [요구사항 협의서](https://docs.google.com/spreadsheets/d/1X8P04WVEI0UHHBgwnm6sdEGvcQMMdDbG/edit#gid=1451597086)
+- [Naming Rule](https://docs.google.com/spreadsheets/d/1Wv_UeDGFgwWSKbVt_ljegem_74iAO51d/edit#gid=1553145129)
+- [화면 정의서](https://app.diagrams.net/#G1gkcP13qSXsKN-8vhqlf_jbOyH3H1UWe8)
+- [프로그램 리스트](https://docs.google.com/spreadsheets/d/1PkNy5FeMStLbZLwcCxHNW4hD4sRn7vET/edit#gid=389956398)
+## 📽 구현 영상 및 링크
+
+[![Video Label](http://img.youtube/vi/8B56RWcd8kA/0.jpg)](https://youtu.be/8B56RWcd8kA)
+
+## 🎁 COLLECTION
+
+
+## 🎋 일정 기록
 |날짜|이름|페이지|진행상황|
 |--|--|--|--|
 |24.01.11|오지수|회사 메인 화면|진행중|
