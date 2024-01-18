@@ -19,7 +19,7 @@
 - [프로그램 리스트](https://docs.google.com/spreadsheets/d/1PkNy5FeMStLbZLwcCxHNW4hD4sRn7vET/edit#gid=389956398)
 ## 📽 구현 영상 및 링크
 
-[![Video Label](http://img.youtube/vi/8B56RWcd8kA/0.jpg)](https://youtu.be/8B56RWcd8kA)
+[![Video Label](http://img.youtube.com/vi/8B56RWcd8kA/0.jpg)](https://youtu.be/8B56RWcd8kA)
 
 ## 🎁 COLLECTION
 
