@@ -22,6 +22,17 @@
 [![Video Label](http://img.youtube.com/vi/8B56RWcd8kA/0.jpg)](https://youtu.be/8B56RWcd8kA)
 
 ## 🎁 COLLECTION
+### Database : click_tech
+
+|COLLECTION이름|value값|
+|--|--|
+|ad_create|type, brand, contents, thumnail, thumnail_url, detail_contents, points|
+|ad_main|type, brand, contents, thumnail, thumnail_url, |
+|faq|categories, question_title, question_main_text|
+|gifty_info|gifty_style, gifty_image, gifty_brand, gifty_name, gifty_price, gifty_datail, gitfy_cautioin |
+|notice||
+|user_info||
+|user_log||
 
 
 ## 🎋 일정 기록
