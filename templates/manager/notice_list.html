@@ -29,7 +29,7 @@ Click-Tech
     <div>아직 공지사항이 없슴둥</div>
     {% else %}
     
-        <table class="table table-hover table-borderless">
+        <table class="table table-hover table-borderless col-12">
             <thead class="text-center">
                 <tr>
                     <th scope="col">번호</th>
@@ -41,10 +41,10 @@ Click-Tech
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="text-center">
                {% for notice in list_notice %}
                 <tr>
-                    <td> {{pagination.start_record_number + loop.index}}</td>
+                    <td>{{pagination.start_record_number + loop.index}}</td>
                     <td>{{ notice.notice_title }}</td>
                     <td>{{ notice.main_text }}</td>
                     <td>{{ notice.date }}</td>
